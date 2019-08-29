@@ -61,3 +61,5 @@ Finalmente, navegue em `http://localhost:3000` e veja que o nosso servidor já e
 
 `npm run test` vai dar conta do recado.
 
+## License
+Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the [MIT](LICENSE.txt) License.
