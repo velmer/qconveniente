@@ -9,14 +9,16 @@ import mongoose from "mongoose";
 import bluebird from "bluebird";
 import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
 import routes from "./routes";
-import { Request, Response, NextFunction } from "express";
-import * as estabelecimentoController from "./controllers/estabelecimentoController";
 
 // Connect to MongoDB
 const MongoStore = mongo(session);
 const mongoUrl = MONGODB_URI;
 mongoose.Promise = bluebird;
-mongoose.connect(mongoUrl, { useNewUrlParser: true} ).then(
+mongoose.connect(mongoUrl, { 
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+}).then(
     () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
     console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
@@ -48,19 +50,7 @@ app.use((req, res, next) => {
     next();
 });
 
-//app.use("/api", routes);
-app.get("/api", (req: Request, res: Response, next: NextFunction) => {
-    return res.send("Bem-vindo(a) à API REST do QConveniente!");
-});
-app.route("/api/estabelecimentos")
-    /** GET /api/estabelecimentos - Get lista de estabelecimentos */
-    .get(estabelecimentoController.consultarEstabelecimentos)
-
-    /** POST /api/estabelecimentos - Cria um novo estabelecimento */
-    .post(estabelecimentoController.salvar);
-
-app.route("/api/estabelecimentos/:idEstabelecimento")
-    /** GET /api/estabelecimentos/:idEstabelecimento - Get estabelecimento */
-    .get(estabelecimentoController.getPorId);
+// Routes configuration
+app.use("/api", routes);
 
 export default app;

@@ -1,12 +1,8 @@
 import express from "express";
-import { Request, Response, NextFunction } from "express";
-import estabelecimentoRoutes from "./routes/estabelecimentoRoute";
+import estabelecimentoRoutes from "./routes/estabelecimentoRoutes";
 
 const router = express.Router();
 
-router.get("/"), (req: Request, res: Response, next: NextFunction) => {
-    return res.send("/api routes ok");
-};
-//router.use("/estabelecimentos", estabelecimentoRoutes);
+router.use("/estabelecimento", estabelecimentoRoutes);
 
 export default router;
