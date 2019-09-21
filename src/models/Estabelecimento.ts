@@ -1,9 +1,66 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
-const Schema = mongoose.Schema;
+/**
+ * Document do Tempo de Entrega.
+ */
+interface TempoEntregaDocument extends Document {
+    minimo: number;
+    maximo: number;
+}
 
-export type EstabelecimentoDocument = mongoose.Document & {
+/**
+ * Document de Turno de Horário de Funcionamento.
+ */
+interface TurnoHorarioFuncionamentoDocument extends Document {
+    inicio: string;
+    fim: string;
+}
+
+/**
+ * Document de Horário de Funcionamento Semanal.
+ */
+interface HorarioFuncionamentoSemanaDocument extends Document {
+    segundaFeira: TurnoHorarioFuncionamentoDocument[];
+    tercaFeira: TurnoHorarioFuncionamentoDocument[];
+    quartaFeira: TurnoHorarioFuncionamentoDocument[];
+    quintaFeira: TurnoHorarioFuncionamentoDocument[];
+    sextaFeira: TurnoHorarioFuncionamentoDocument[];
+    sabado: TurnoHorarioFuncionamentoDocument[];
+    domingo: TurnoHorarioFuncionamentoDocument[];
+}
+
+/**
+ * Document de Subseção de Seção do Cardápio.
+ */
+interface SubSecaoDocument extends Document {
     nome: string;
+}
+
+/**
+ * Document de Seção do Cardápio.
+ */
+interface SecaoDocument extends Document {
+    nome: string;
+    subSecoes: SubSecaoDocument[];
+}
+
+/**
+ * Document do Estabelecimento.
+ */
+export interface EstabelecimentoDocument extends Document {
+    nome: string;
+    categorias: string[];
+    formasPagamento: string[];
+    telefones: string[];
+    valorEntrega: number;
+    tempoEntrega: TempoEntregaDocument;
+    horariosFuncionamento: HorarioFuncionamentoSemanaDocument;
+    secoes: SecaoDocument[];
+    avaliacao: number;
+    inadimplente: boolean;
+    inativo: boolean;
+    criadoEm: Date;
+    atualizadoEm: Date;
 };
 
 /**
@@ -66,7 +123,10 @@ const SecaoSchema = new Schema({
     subSecoes: [SubSecaoSchema]
 });
 
-const estabelecimentoSchema = new Schema({
+/**
+ * Schema do Estabelecimento.
+ */
+const EstabelecimentoSchema = new Schema({
     nome: {
         type: String,
         trim: true
@@ -109,9 +169,7 @@ const estabelecimentoSchema = new Schema({
     inativo: {
         type: Boolean,
         default: false
-    },
-    dataCriacao: Date,
-    dataEdicao: Date
-}, { timestamps: true });
+    }
+}, { timestamps: { createdAt: "criadoEm", updatedAt: "atualiadoEm" } });
 
-export const Estabelecimento = mongoose.model<EstabelecimentoDocument>("Estabelecimento", estabelecimentoSchema);
+export const Estabelecimento = mongoose.model<EstabelecimentoDocument>("Estabelecimento", EstabelecimentoSchema);
