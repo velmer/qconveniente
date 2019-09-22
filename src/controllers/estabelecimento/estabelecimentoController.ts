@@ -3,6 +3,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as httpStatus from "http-status-codes";
 import * as estabelecimentoService from "../../services/estabelecimento/estabelecimentoService";
+import mensagensErro from "../../util/mensagensErro";
 
 /**
  * Retorna uma lista de estabelecimentos que satisfizerem os parâmetros
@@ -13,20 +14,7 @@ export const consultar = async (req: Request, res: Response, next: NextFunction)
         const estabelecimentos = await estabelecimentoService.consultar(req.query);
         return res.status(httpStatus.OK).json(estabelecimentos);
     } catch (erro) {
-        return next(erro);
-    }
-};
-
-/**
- * Retorna um estabelecimento dado o seu ID.
- */
-export const getPorId = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const estabelecimento = await estabelecimentoService
-            .getPorId(req.params["idEstabelecimento"]);
-        return res.status(httpStatus.OK).json(estabelecimento);
-    } catch (erro) {
-        return next(erro);
+        return next(erro || mensagensErro.ESTABELECIMENTO.BUSCA_ESTABELECIMENTOS);
     }
 };
 
@@ -48,7 +36,20 @@ export const getPorCategoria = async (req: Request, res: Response, next: NextFun
         const estabelecimentos = await estabelecimentoService.consultar(parametroCategorias);
         return res.status(httpStatus.OK).json(estabelecimentos);
     } catch (erro) {
-        return next(erro);
+        return next(erro || mensagensErro.ESTABELECIMENTO.BUSCA_ESTABELECIMENTOS);
+    }
+};
+
+/**
+ * Retorna um estabelecimento dado o seu ID.
+ */
+export const getPorId = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const estabelecimento = await estabelecimentoService
+            .getPorId(req.params["idEstabelecimento"]);
+        return res.status(httpStatus.OK).json(estabelecimento);
+    } catch (erro) {
+        return next(erro || mensagensErro.ESTABELECIMENTO.BUSCA_ESTABELECIMENTO);
     }
 };
 
@@ -61,7 +62,7 @@ export const salvar = async (req: Request, res: Response, next: NextFunction) =>
         const e = await estabelecimentoService.salvar(req.body);
         return res.status(httpStatus.CREATED).json(e);
     } catch (erro) {
-        return next(erro);
+        return next(erro || mensagensErro.ESTABELECIMENTO.SALVAMENTO_ESTABELECIMENTO);
     }
 };
 
@@ -74,6 +75,6 @@ export const atualizar = async (req: Request, res: Response, next: NextFunction)
         const estabelecimentoAtualizado = await estabelecimentoService.atualizar(estabelecimento);
         return res.status(httpStatus.OK).json(estabelecimentoAtualizado);
     } catch (erro) {
-        return next(erro);
+        return next(erro || mensagensErro.ESTABELECIMENTO.ATUALIZACAO_ESTABELECIMENTO);
     }
 };

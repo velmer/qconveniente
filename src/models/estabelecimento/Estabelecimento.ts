@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
-import Constantes from "../../util/constantes";
-import MensagensErro from "../../util/MensagensErro";
+import constantes from "../../util/constantes";
+import mensagensErro from "../../util/MensagensErro";
 
 /**
  * Document do Tempo de Entrega.
@@ -71,11 +71,11 @@ export interface EstabelecimentoDocument extends Document {
 const TempoEntregaSchema = new Schema({
     minimo: {
         type: Number,
-        required: [true, MensagensErro.ESTABELECIMENTO.TEMPO_MINIMO_ENTREGA_OBRIGATORIO]
+        required: [true, mensagensErro.ESTABELECIMENTO.TEMPO_MINIMO_ENTREGA_OBRIGATORIO]
     },
     maximo: {
         type: Number,
-        required: [true, MensagensErro.ESTABELECIMENTO.TEMPO_MAXIMO_ENTREGA_OBRIGATORIO]
+        required: [true, mensagensErro.ESTABELECIMENTO.TEMPO_MAXIMO_ENTREGA_OBRIGATORIO]
     }
 });
 
@@ -85,16 +85,16 @@ const TempoEntregaSchema = new Schema({
 const TurnoHorarioFuncionamentoSchema = new Schema({
     inicio: {
         type: String,
-        required: [true, MensagensErro.ESTABELECIMENTO.INICIO_HORARIO_FUNCIONAMENTO_OBRIGATORIO],
+        required: [true, mensagensErro.ESTABELECIMENTO.INICIO_HORARIO_FUNCIONAMENTO_OBRIGATORIO],
         /* Formato hhMM, para facilitar operações, verificações e aplicação de máscara */
-        match: [Constantes.REGEX.HORA_SEM_PONTUACAO, MensagensErro.ESTABELECIMENTO.INICIO_HORARIO_FUNCIONAMENTO_INVALIDO],
+        match: [constantes.REGEX.HORA_SEM_PONTUACAO, mensagensErro.ESTABELECIMENTO.INICIO_HORARIO_FUNCIONAMENTO_INVALIDO],
         trim: true
     },
     fim: {
         type: String,
-        required: [true, MensagensErro.ESTABELECIMENTO.FIM_HORARIO_FUNCIONAMENTO_OBRIGATORIO],
+        required: [true, mensagensErro.ESTABELECIMENTO.FIM_HORARIO_FUNCIONAMENTO_OBRIGATORIO],
         /* Formato hhMM, para facilitar operações, verificações e aplicação de máscara */
-        match: [Constantes.REGEX.HORA_SEM_PONTUACAO, MensagensErro.ESTABELECIMENTO.FIM_HORARIO_FUNCIONAMENTO_INVALIDO],
+        match: [constantes.REGEX.HORA_SEM_PONTUACAO, mensagensErro.ESTABELECIMENTO.FIM_HORARIO_FUNCIONAMENTO_INVALIDO],
         trim: true
     }
 });
@@ -118,11 +118,11 @@ const HorarioFuncionamentoSemanaSchema = new Schema({
 const SubSecaoSchema = new Schema({
     nome: {
         type: String,
-        minlength: [Constantes.ESTABELECIMENTO.NOME_SUBSECAO_TAMANHO_MINIMO,
-            MensagensErro.ESTABELECIMENTO.NOME_SUBSECAO_TAMANHO_MINIMO],
-        maxlength: [Constantes.ESTABELECIMENTO.NOME_SUBSECAO_TAMANHO_MAXIMO,
-            MensagensErro.ESTABELECIMENTO.NOME_SUBSECAO_TAMANHO_MAXIMO],
-        required: [true, MensagensErro.ESTABELECIMENTO.NOME_SUBSECAO_OBRIGATORIO],
+        minlength: [constantes.ESTABELECIMENTO.NOME_SUBSECAO_TAMANHO_MINIMO,
+            mensagensErro.ESTABELECIMENTO.NOME_SUBSECAO_TAMANHO_MINIMO],
+        maxlength: [constantes.ESTABELECIMENTO.NOME_SUBSECAO_TAMANHO_MAXIMO,
+            mensagensErro.ESTABELECIMENTO.NOME_SUBSECAO_TAMANHO_MAXIMO],
+        required: [true, mensagensErro.ESTABELECIMENTO.NOME_SUBSECAO_OBRIGATORIO],
         trim: true
     }
 });
@@ -133,11 +133,11 @@ const SubSecaoSchema = new Schema({
 const SecaoSchema = new Schema({
     nome: {
         type: String,
-        minlength: [Constantes.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MINIMO,
-            MensagensErro.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MINIMO],
-        maxlength: [Constantes.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MAXIMO,
-            MensagensErro.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MAXIMO],
-        required: [true, MensagensErro.ESTABELECIMENTO.NOME_SECAO_OBRIGATORIO],
+        minlength: [constantes.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MINIMO,
+            mensagensErro.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MINIMO],
+        maxlength: [constantes.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MAXIMO,
+            mensagensErro.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MAXIMO],
+        required: [true, mensagensErro.ESTABELECIMENTO.NOME_SECAO_OBRIGATORIO],
         trim: true
     },
     subSecoes: [SubSecaoSchema]
@@ -149,61 +149,61 @@ const SecaoSchema = new Schema({
 const EstabelecimentoSchema = new Schema({
     nome: {
         type: String,
-        minlength: [Constantes.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MINIMO,
-            MensagensErro.ESTABELECIMENTO.NOME_TAMANHO_MINIMO],
-        maxlength: [Constantes.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MAXIMO,
-            MensagensErro.ESTABELECIMENTO.NOME_TAMANHO_MAXIMO],
-        required: [true, MensagensErro.ESTABELECIMENTO.NOME_OBRIGATORIO],
+        minlength: [constantes.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MINIMO,
+            mensagensErro.ESTABELECIMENTO.NOME_TAMANHO_MINIMO],
+        maxlength: [constantes.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MAXIMO,
+            mensagensErro.ESTABELECIMENTO.NOME_TAMANHO_MAXIMO],
+        required: [true, mensagensErro.ESTABELECIMENTO.NOME_OBRIGATORIO],
         trim: true
     },
     categorias: {
         type: [{
             type: String,
             enum: {
-                values: Object.values(Constantes.ESTABELECIMENTO.CATEGORIAS),
-                message: MensagensErro.ESTABELECIMENTO.CATEGORIA_INVALIDA
+                values: Object.values(constantes.ESTABELECIMENTO.CATEGORIAS),
+                message: mensagensErro.ESTABELECIMENTO.CATEGORIA_INVALIDA
             }
         }],
-        required: [true, MensagensErro.ESTABELECIMENTO.CATEGORIA_OBRIGATORIA]
+        required: [true, mensagensErro.ESTABELECIMENTO.CATEGORIA_OBRIGATORIA]
     },
     formasPagamento: {
         type: [{
             type: String,
             enum: {
-                values: Constantes.ESTABELECIMENTO.FORMAS_PAGAMENTO,
-                message: MensagensErro.ESTABELECIMENTO.FORMA_PAGAMENTO_INVALIDA
+                values: constantes.ESTABELECIMENTO.FORMAS_PAGAMENTO,
+                message: mensagensErro.ESTABELECIMENTO.FORMA_PAGAMENTO_INVALIDA
             }
         }],
-        required: [true, MensagensErro.ESTABELECIMENTO.FORMA_PAGAMENTO_OBRIGATORIA]
+        required: [true, mensagensErro.ESTABELECIMENTO.FORMA_PAGAMENTO_OBRIGATORIA]
     },
     telefones: {
         type: [{
             type: String,
             /* Aceita os formatos XX9XXXXXXXX ou XXXXXXXXXX (Sem máscara e espaços) */
-            match: [Constantes.REGEX.TELEFONE_SEM_PONTUACAO, MensagensErro.ESTABELECIMENTO.TELEFONE_INVALIDO],
+            match: [constantes.REGEX.TELEFONE_SEM_PONTUACAO, mensagensErro.ESTABELECIMENTO.TELEFONE_INVALIDO],
             trim: true
         }],
-        required: [true, MensagensErro.ESTABELECIMENTO.TELEFONE_OBRIGATORIO]
+        required: [true, mensagensErro.ESTABELECIMENTO.TELEFONE_OBRIGATORIO]
     },
     valorEntrega: {
         type: Number,
-        required: [true, MensagensErro.ESTABELECIMENTO.VALOR_ENTREGA_OBRIGATORIO]
+        required: [true, mensagensErro.ESTABELECIMENTO.VALOR_ENTREGA_OBRIGATORIO]
     },
     tempoEntrega: {
         type: TempoEntregaSchema,
-        required: [true, MensagensErro.ESTABELECIMENTO.TEMPO_ENTREGA_OBRIGATORIO]
+        required: [true, mensagensErro.ESTABELECIMENTO.TEMPO_ENTREGA_OBRIGATORIO]
     },
     horariosFuncionamento: {
         type: HorarioFuncionamentoSemanaSchema,
-        required: [true, MensagensErro.ESTABELECIMENTO.HORARIO_FUNCIONAMENTO_OBRIGATORIO]
+        required: [true, mensagensErro.ESTABELECIMENTO.HORARIO_FUNCIONAMENTO_OBRIGATORIO]
     },
     secoes: {
         type: [SecaoSchema]
     },
     avaliacao: {
         type: Number,
-        min: [Constantes.ESTABELECIMENTO.AVALIACAO_MINIMA, MensagensErro.ESTABELECIMENTO.AVALIACAO_MINIMA],
-        max: [Constantes.ESTABELECIMENTO.AVALIACAO_MAXIMA, MensagensErro.ESTABELECIMENTO.AVALIACAO_MAXIMA],
+        min: [constantes.ESTABELECIMENTO.AVALIACAO_MINIMA, mensagensErro.ESTABELECIMENTO.AVALIACAO_MINIMA],
+        max: [constantes.ESTABELECIMENTO.AVALIACAO_MAXIMA, mensagensErro.ESTABELECIMENTO.AVALIACAO_MAXIMA],
     },
     inadimplente: {
         type: Boolean,

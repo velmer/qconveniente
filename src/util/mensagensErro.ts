@@ -2,6 +2,7 @@ const ESTABELECIMENTO = {
     ESTABELECIMENTO_NAO_ENCONTRADO: "Estabelecimento não encontrado.",
     ID_INVALIDO: "O ID do Estabelecimento é inválido.",
     BUSCA_ESTABELECIMENTO: "Não foi possível encontrar o Estabelecimento.",
+    BUSCA_ESTABELECIMENTOS: "Não foi possível encontrar os Estabelecimentos.",
     SALVAMENTO_ESTABELECIMENTO: "Não foi possível salvar o Estabelecimento.",
     ATUALIZACAO_ESTABELECIMENTO: "Não foi possível atualizar o Estabelecimento.",
     EXCLUSAO_ESTABELECIMENTO: "Não foi possível deletar o Estabelecimento.",
