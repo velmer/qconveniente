@@ -1,7 +1,7 @@
 "use strict";
 
 import { Request, Response, NextFunction } from "express";
-import * as estabelecimentoService from "../services/estabelecimentoService";
+import * as estabelecimentoService from "../../services/estabelecimento/estabelecimentoService";
 
 /**
  * Retorna uma lista de estabelecimentos que satisfizerem os parâmetros

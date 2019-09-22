@@ -1,5 +1,5 @@
 import express from "express";
-import estabelecimentoRoutes from "./routes/estabelecimentoRoutes";
+import estabelecimentoRoutes from "./routes/estabelecimento/estabelecimentoRoutes";
 
 const router = express.Router();
 

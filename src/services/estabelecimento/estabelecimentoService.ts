@@ -1,6 +1,6 @@
 "use strict";
 
-import { Estabelecimento, EstabelecimentoDocument } from "../models/Estabelecimento";
+import { Estabelecimento, EstabelecimentoDocument } from "../../models/estabelecimento/Estabelecimento";
 
 /**
  * Retorna os estabelecimento que satisfazerem as condições dadas nos

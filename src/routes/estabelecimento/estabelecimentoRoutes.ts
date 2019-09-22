@@ -1,5 +1,5 @@
 import express from "express";
-import * as estabelecimentoController from "../controllers/estabelecimentoController";
+import * as estabelecimentoController from "../../controllers/estabelecimento/estabelecimentoController";
 
 const estabelecimentoRoutes = express.Router();
     
