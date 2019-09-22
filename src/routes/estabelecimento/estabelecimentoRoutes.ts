@@ -10,7 +10,7 @@ estabelecimentoRoutes.route("/")
     /** POST /api/estabelecimento - Cria um novo estabelecimento */
     .post(estabelecimentoController.salvar);
 
-estabelecimentoRoutes.route("/categorias")
+estabelecimentoRoutes.route("/categoria")
     /** GET /api/estabelecimentos/categorias - Retornar os estabelecimentos por categoria */
     .get(estabelecimentoController.getPorCategoria);
 

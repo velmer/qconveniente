@@ -1,6 +1,7 @@
 "use strict";
 
 import { Request, Response, NextFunction } from "express";
+import * as httpStatus from "http-status-codes";
 import * as estabelecimentoService from "../../services/estabelecimento/estabelecimentoService";
 
 /**
@@ -10,7 +11,7 @@ import * as estabelecimentoService from "../../services/estabelecimento/estabele
 export const consultar = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const estabelecimentos = await estabelecimentoService.consultar(req.query);
-        return res.json(estabelecimentos);
+        return res.status(httpStatus.OK).json(estabelecimentos);
     } catch (erro) {
         return next(erro);
     }
@@ -23,7 +24,7 @@ export const getPorId = async (req: Request, res: Response, next: NextFunction) 
     try {
         const estabelecimento = await estabelecimentoService
             .getPorId(req.params["idEstabelecimento"]);
-        return res.json(estabelecimento);
+        return res.status(httpStatus.OK).json(estabelecimento);
     } catch (erro) {
         return next(erro);
     }
@@ -45,7 +46,7 @@ export const getPorCategoria = async (req: Request, res: Response, next: NextFun
         categorias = categorias.map((categoria: string) => mapCategoriaSemAcento[categoria] || categoria);
         const parametroCategorias = { "categorias": { $all: categorias } };
         const estabelecimentos = await estabelecimentoService.consultar(parametroCategorias);
-        return res.json(estabelecimentos);
+        return res.status(httpStatus.OK).json(estabelecimentos);
     } catch (erro) {
         return next(erro);
     }
@@ -58,7 +59,7 @@ export const getPorCategoria = async (req: Request, res: Response, next: NextFun
 export const salvar = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const e = await estabelecimentoService.salvar(req.body);
-        return res.json(e);
+        return res.status(httpStatus.CREATED).json(e);
     } catch (erro) {
         return next(erro);
     }
@@ -71,7 +72,7 @@ export const atualizar = async (req: Request, res: Response, next: NextFunction)
     try {
         const estabelecimento = req.body;
         const estabelecimentoAtualizado = await estabelecimentoService.atualizar(estabelecimento);
-        return res.json(estabelecimentoAtualizado);
+        return res.status(httpStatus.OK).json(estabelecimentoAtualizado);
     } catch (erro) {
         return next(erro);
     }
