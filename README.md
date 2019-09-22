@@ -61,6 +61,10 @@ Finalmente, navegue em `http://localhost:3000` e veja que o nosso servidor já e
 
 `npm run test` vai dar conta do recado.
 
+# Especificação
+
+Todas as regras de negócios e casos de uso do QConveniente estão disponíveis em sua [especificação](ESPECIFICADAO.md).
+
 # Arquitetura
 
 <p align="center">
