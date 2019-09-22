@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
+import Constantes from "../../util/Constantes";
 
 /**
  * Document do Tempo de Entrega.
@@ -129,38 +130,57 @@ const SecaoSchema = new Schema({
 const EstabelecimentoSchema = new Schema({
     nome: {
         type: String,
+        minlength: [Constantes.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MINIMO],
+        maxlength: [Constantes.ESTABELECIMENTO.NOME_SECAO_TAMANHO_MAXIMO],
+        required: [true],
         trim: true
     },
     categorias: {
         type: [{
-            type: String
-        }]
+            type: String,
+            enum: {
+                values: Object.values(Constantes.ESTABELECIMENTO.CATEGORIAS),
+            }
+        }],
+        required: [true]
     },
     formasPagamento: {
         type: [{
-            type: String
-        }]
+            type: String,
+            enum: {
+                values: Constantes.ESTABELECIMENTO.FORMAS_PAGAMENTO,
+            }
+        }],
+        required: [true]
     },
     telefones: {
         type: [{
             type: String,
+            /* Aceita os formatos XX9XXXXXXXX ou XXXXXXXXXX (Sem máscara e espaços) */
+            match: [Constantes.REGEX.TELEFONE_SEM_PONTUACAO],
             trim: true
-        }]
+        }],
+        required: [true]
     },
     valorEntrega: {
-        type: Number
+        type: Number,
+        required: [true]
     },
     tempoEntrega: {
-        type: TempoEntregaSchema
+        type: TempoEntregaSchema,
+        required: [true]
     },
     horariosFuncionamento: {
-        type: HorarioFuncionamentoSemanaSchema
+        type: HorarioFuncionamentoSemanaSchema,
+        required: [true]
     },
     secoes: {
         type: [SecaoSchema]
     },
     avaliacao: {
-        type: Number
+        type: Number,
+        min: [Constantes.ESTABELECIMENTO.AVALIACAO_MINIMA],
+        max: [Constantes.ESTABELECIMENTO.AVALIACAO_MAXIMA],
     },
     inadimplente: {
         type: Boolean,
