@@ -25,6 +25,16 @@ const ESTABELECIMENTO = {
     },
 };
 
+const GESTOR = {
+    PERMISSOES: {
+        ADMIN: "admin",
+        GERENTE: "gerente",
+        FUNCIONARIO: "funcionario"
+    },
+    NOME_USUARIO_TAMANHO_MINIMO: 3,
+    NOME_USUARIO_TAMANHO_MAXIMO: 30
+};
+
 const REGEX = {
     HORA_SEM_PONTUACAO: /^[0-9]{4}$/,
     TELEFONE_SEM_PONTUACAO: /^[1-9]{2}9?[0-9]{8}$/,
@@ -35,7 +45,11 @@ const REGEX = {
 
 const Constantes = Object.freeze({
     ESTABELECIMENTO,
-    REGEX
+    GESTOR,
+    REGEX,
+
+    SENHA_TAMANHO_MINIMO: 6,
+    SENHA_TAMANHO_MAXIMO: 20,
 });
 
 export default Constantes;
