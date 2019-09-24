@@ -10,7 +10,7 @@ import SenhaUtil from "../../util/senhaUtil";
 /**
  * Document do Gestor.
  */
-interface GestorDocument extends Document {
+export interface GestorDocument extends Document {
     nomeUsuario: string;
     senha: string;
     permissao: string;
