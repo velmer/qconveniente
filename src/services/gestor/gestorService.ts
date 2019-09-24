@@ -19,7 +19,7 @@ export const get = async (params: object = {}): Promise<GestorDocument[]> => {
  * @return {Promise} Promessa contendo o gestor.
  */
 export const getPorId = async (id: string): Promise<GestorDocument> => {
-    const gestor = await Gestor.findById(id);
+    const gestor = await Gestor.getById(id);
     return gestor;
 };
 
@@ -54,5 +54,6 @@ export const atualiza = async (gestor: GestorDocument): Promise<GestorDocument> 
  * @return {Promise} Promessa vazia.
  */
 export const exclui = async (id: string): Promise<any> => {
+    await getPorId(id);
     await Gestor.findByIdAndRemove(id);
 };
