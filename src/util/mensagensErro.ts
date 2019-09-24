@@ -38,6 +38,7 @@ const GESTOR = {
     GESTOR_NAO_ENCONTRADO: "Gestor não encontrado.",
     ID_INVALIDO: "O ID do Gestor é inválido.",
     BUSCA_GESTOR: "Não foi possível encontrar o Gestor.",
+    BUSCA_GESTORES: "Não foi possível encontrar os Gestores.",
     SALVAMENTO_GESTOR: "Não foi possível salvar o Gestor.",
     ATUALIZACAO_GESTOR: "Não foi possível atualizar o Gestor.",
     EXCLUSAO_GESTOR: "Não foi possível deletar o Gestor.",
