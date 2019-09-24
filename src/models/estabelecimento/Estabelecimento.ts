@@ -1,4 +1,6 @@
-import mongoose, { Document, Schema } from "mongoose";
+import httpStatus from "http-status-codes";
+import APIError from "../../util/APIError";
+import mongoose, { Document, Model, Schema } from "mongoose";
 import constantes from "../../util/constantes";
 import mensagensErro from "../../util/MensagensErro";
 
@@ -64,6 +66,10 @@ export interface EstabelecimentoDocument extends Document {
     criadoEm: Date;
     atualizadoEm: Date;
 };
+
+interface Estabelecimento extends Model<EstabelecimentoDocument> {
+    getById(id: string): Promise<any>;
+}
 
 /**
  * Schema do Tempo de Entrega.
@@ -213,6 +219,55 @@ const EstabelecimentoSchema = new Schema({
         type: Boolean,
         default: false
     }
-}, { timestamps: { createdAt: "criadoEm", updatedAt: "atualiadoEm" } });
+}, { timestamps: { createdAt: "criadoEm", updatedAt: "atualizadoEm" } });
 
-export const Estabelecimento = mongoose.model<EstabelecimentoDocument>("Estabelecimento", EstabelecimentoSchema);
+/**
+ * Executa ações necessárias antes do salvamento do Estabelecimento.
+ *
+ * Ações:
+ * - Deletar propriedade criadoEm
+ * - Deletar propriedade atualizadoEm
+ */
+EstabelecimentoSchema.pre<EstabelecimentoDocument>("save", function(next) {
+    delete this.criadoEm;
+    delete this.atualizadoEm;
+    next();
+});
+
+/**
+ * Define como o Estabelecimento será convertido para JSON.
+ */
+EstabelecimentoSchema.set("toJSON", {
+    transform: function (_doc, ret) {
+        delete ret.criadoEm;
+        delete ret.atualizadoEm;
+        delete ret.__v;
+    }
+});
+
+/**
+ * Retorna um Estabelecimento dado o ID deste.
+ *
+ * @param {string} id ID do Estabelecimento a ser buscado.
+ * @returns {Promise} Promessa contendo Estabelecimento que possui o ID especificado
+ * ou um erro.
+ */
+EstabelecimentoSchema.statics.getById = async function (id: string): Promise<any> {
+    return this.findById(id)
+        .exec()
+        .then((estabelecimento: EstabelecimentoDocument) => {
+            if (estabelecimento) {
+                return estabelecimento;
+            }
+            const erro = new APIError(mensagensErro.ESTABELECIMENTO.ESTABELECIMENTO_NAO_ENCONTRADO, httpStatus.NOT_FOUND);
+            throw erro;
+        })
+        .catch((erro: any) => {
+            if (!(erro instanceof APIError)) {
+                erro = new APIError(mensagensErro.ESTABELECIMENTO.ID_INVALIDO, httpStatus.BAD_REQUEST);
+            }
+            throw erro;
+        });
+};
+
+export const Estabelecimento: Estabelecimento = mongoose.model<EstabelecimentoDocument, Estabelecimento>("Estabelecimento", EstabelecimentoSchema);

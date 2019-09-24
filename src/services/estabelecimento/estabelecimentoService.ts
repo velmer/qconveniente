@@ -9,7 +9,7 @@ import { Estabelecimento, EstabelecimentoDocument } from "../../models/estabelec
  * @param {Object} params Parâmetros da busca.
  * @return {Promise} Promessa contendo os estabelecimentos ou um erro.
  */
-export const consultar = async (params: object = {}): Promise<EstabelecimentoDocument[]> => {
+export const get = async (params: object = {}): Promise<EstabelecimentoDocument[]> => {
     const estabelecimentos = await Estabelecimento.find(params);
     return estabelecimentos;
 };
@@ -21,7 +21,7 @@ export const consultar = async (params: object = {}): Promise<EstabelecimentoDoc
  * @return {Promise} Promessa contendo o estabelecimento ou um erro.
  */
 export const getPorId = async (id: string): Promise<EstabelecimentoDocument> => {
-    const estabelecimento = await Estabelecimento.findById(id);
+    const estabelecimento = await Estabelecimento.getById(id);
     return estabelecimento;
 };
 
@@ -31,7 +31,7 @@ export const getPorId = async (id: string): Promise<EstabelecimentoDocument> => 
  * @param {Estabelecimento|Object} estabelecimento Estabelecimento a ser salvo.
  * @return {Promise} Promessa contendo o estabelecimento salvo ou um erro.
  */
-export const salvar = async (estabelecimentoJSON: JSON): Promise<EstabelecimentoDocument> => {
+export const salva = async (estabelecimentoJSON: JSON): Promise<EstabelecimentoDocument> => {
     const estabelecimento = new Estabelecimento(estabelecimentoJSON);
     return await estabelecimento.save();
 };
@@ -42,7 +42,7 @@ export const salvar = async (estabelecimentoJSON: JSON): Promise<Estabelecimento
  * @param {Estabelecimento} estabelecimento Estabelecimento a ser atualizado.
  * @return {Promise} Promessa contendo o estabelecimento atualizado ou um erro.
  */
-export const atualizar = async (estabelecimento: EstabelecimentoDocument): Promise<EstabelecimentoDocument> => {
+export const atualiza = async (estabelecimento: EstabelecimentoDocument): Promise<EstabelecimentoDocument> => {
     const opcoes = { new: true }; // Deve retornar o estabelecimento atualizado.
     const estabelecimentoAtualizado = Estabelecimento
         .findByIdAndUpdate(estabelecimento._id, estabelecimento, opcoes);

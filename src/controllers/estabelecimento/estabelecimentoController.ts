@@ -9,9 +9,9 @@ import mensagensErro from "../../util/mensagensErro";
  * Retorna uma lista de estabelecimentos que satisfizerem os parâmetros
  * especificados na requisição.
  */
-export const consultar = async (req: Request, res: Response, next: NextFunction) => {
+export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const estabelecimentos = await estabelecimentoService.consultar(req.query);
+        const estabelecimentos = await estabelecimentoService.get(req.query);
         return res.status(httpStatus.OK).json(estabelecimentos);
     } catch (erro) {
         return next(erro || mensagensErro.ESTABELECIMENTO.BUSCA_ESTABELECIMENTOS);
@@ -33,7 +33,7 @@ export const getPorCategoria = async (req: Request, res: Response, next: NextFun
         let { categorias } = req.query;
         categorias = categorias.map((categoria: string) => mapCategoriaSemAcento[categoria] || categoria);
         const parametroCategorias = { "categorias": { $all: categorias } };
-        const estabelecimentos = await estabelecimentoService.consultar(parametroCategorias);
+        const estabelecimentos = await estabelecimentoService.get(parametroCategorias);
         return res.status(httpStatus.OK).json(estabelecimentos);
     } catch (erro) {
         return next(erro || mensagensErro.ESTABELECIMENTO.BUSCA_ESTABELECIMENTOS);
@@ -57,9 +57,9 @@ export const getPorId = async (req: Request, res: Response, next: NextFunction) 
  * Cria um novo estabelecimento, criando também o seu gerente, o qual deve
  * ser enviado na requisição.
  */
-export const salvar = async (req: Request, res: Response, next: NextFunction) => {
+export const salva = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const e = await estabelecimentoService.salvar(req.body);
+        const e = await estabelecimentoService.salva(req.body);
         return res.status(httpStatus.CREATED).json(e);
     } catch (erro) {
         return next(erro || mensagensErro.ESTABELECIMENTO.SALVAMENTO_ESTABELECIMENTO);
@@ -69,10 +69,10 @@ export const salvar = async (req: Request, res: Response, next: NextFunction) =>
 /**
  * Atualiza, através de um PATCH, um estabelecimento.
  */
-export const atualizar = async (req: Request, res: Response, next: NextFunction) => {
+export const atualiza = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const estabelecimento = req.body;
-        const estabelecimentoAtualizado = await estabelecimentoService.atualizar(estabelecimento);
+        const estabelecimentoAtualizado = await estabelecimentoService.atualiza(estabelecimento);
         return res.status(httpStatus.OK).json(estabelecimentoAtualizado);
     } catch (erro) {
         return next(erro || mensagensErro.ESTABELECIMENTO.ATUALIZACAO_ESTABELECIMENTO);

@@ -5,10 +5,10 @@ const estabelecimentoRoutes = express.Router();
     
 estabelecimentoRoutes.route("/")
     /** GET /api/estabelecimento - Get lista de estabelecimentos */
-    .get(estabelecimentoController.consultar)
+    .get(estabelecimentoController.get)
 
     /** POST /api/estabelecimento - Cria um novo estabelecimento */
-    .post(estabelecimentoController.salvar);
+    .post(estabelecimentoController.salva);
 
 estabelecimentoRoutes.route("/categoria")
     /** GET /api/estabelecimentos/categorias - Retornar os estabelecimentos por categoria */
@@ -19,6 +19,6 @@ estabelecimentoRoutes.route("/:idEstabelecimento")
     .get(estabelecimentoController.getPorId)
     
     /** PATCH /api/estabelecimento/:idEstabelecimento */
-    .patch(estabelecimentoController.atualizar);
+    .patch(estabelecimentoController.atualiza);
 
 export default estabelecimentoRoutes;
