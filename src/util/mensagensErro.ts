@@ -1,3 +1,8 @@
+const AUTH = {
+    NOME_USUARIO_INCORRETO: "Nome de usuário incorreto.",
+    SENHA_INCORRETA: "Senha incorreta",
+};
+
 const ESTABELECIMENTO = {
     ESTABELECIMENTO_NAO_ENCONTRADO: "Estabelecimento não encontrado.",
     ID_INVALIDO: "O ID do Estabelecimento é inválido.",
@@ -51,6 +56,7 @@ const GESTOR = {
 };
 
 const MensagensErro = Object.freeze({
+    AUTH,
     ESTABELECIMENTO,
     GESTOR,
 

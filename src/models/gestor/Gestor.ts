@@ -21,8 +21,8 @@ export interface GestorDocument extends Document {
 };
 
 interface Gestor extends Model<GestorDocument> {
-    getById(id: string): Promise<any>;
-    getByNomeUsuario(nomeUsuario: string): Promise<any>;
+    getPorId(id: string): Promise<any>;
+    getPorNomeUsuario(nomeUsuario: string): Promise<any>;
 }
 
 /**
@@ -106,7 +106,7 @@ GestorSchema.methods.comparaSenha = function (senha: string): boolean {
  * @returns {Promise} Promise contendo Gestor que possui o ID especificado
  * ou contendo um erro.
  */
-GestorSchema.statics.getById = async function (id: string): Promise<any> {
+GestorSchema.statics.getPorId = async function (id: string): Promise<any> {
     return this.findById(id)
         .exec()
         .then((gestor: GestorDocument) => {
@@ -131,7 +131,7 @@ GestorSchema.statics.getById = async function (id: string): Promise<any> {
  * @returns {Promise} Promise contendo Gestor que possui o nomeUsuario especificado
  * ou contendo um erro.
  */
-GestorSchema.statics.getByNomeUsuario = async function (nomeUsuario: string): Promise<any> {
+GestorSchema.statics.getPorNomeUsuario = async function (nomeUsuario: string): Promise<any> {
     return this.findOne({ nomeUsuario })
         .exec()
         .then((gestor: GestorDocument) => {

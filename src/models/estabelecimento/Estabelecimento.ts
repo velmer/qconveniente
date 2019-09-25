@@ -68,7 +68,7 @@ export interface EstabelecimentoDocument extends Document {
 };
 
 interface Estabelecimento extends Model<EstabelecimentoDocument> {
-    getById(id: string): Promise<any>;
+    getPorId(id: string): Promise<any>;
 }
 
 /**
@@ -252,7 +252,7 @@ EstabelecimentoSchema.set("toJSON", {
  * @returns {Promise} Promessa contendo Estabelecimento que possui o ID especificado
  * ou um erro.
  */
-EstabelecimentoSchema.statics.getById = async function (id: string): Promise<any> {
+EstabelecimentoSchema.statics.getPorId = async function (id: string): Promise<any> {
     return this.findById(id)
         .exec()
         .then((estabelecimento: EstabelecimentoDocument) => {

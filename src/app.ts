@@ -8,7 +8,7 @@ import flash from "express-flash";
 import mongoose from "mongoose";
 import * as httpStatus from "http-status-codes";
 import bluebird from "bluebird";
-import { MONGODB_URI, SESSION_SECRET } from "./util/secrets";
+import { MONGODB_URI, SESSION_SECRET } from "./config/secrets";
 import routes from "./routes";
 import APIError from "./util/APIError";
 

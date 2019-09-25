@@ -19,7 +19,18 @@ export const get = async (params: object = {}): Promise<GestorDocument[]> => {
  * @return {Promise} Promessa contendo o gestor.
  */
 export const getPorId = async (id: string): Promise<GestorDocument> => {
-    const gestor = await Gestor.getById(id);
+    const gestor = await Gestor.getPorId(id);
+    return gestor;
+};
+
+/**
+ * Retorna um gestor dado o seu nome de usuário.
+ * 
+ * @param {String} nomeUsuario Nome de usuário do gestor a ser retornado.
+ * @return {Promise} Promessa contendo o gestor.
+ */
+export const getPorNomeUsuario = async (nomeUsuario: string): Promise<GestorDocument> => {
+    const gestor = await Gestor.getPorNomeUsuario(nomeUsuario);
     return gestor;
 };
 

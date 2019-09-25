@@ -21,7 +21,7 @@ export const get = async (params: object = {}): Promise<EstabelecimentoDocument[
  * @return {Promise} Promessa contendo o estabelecimento ou um erro.
  */
 export const getPorId = async (id: string): Promise<EstabelecimentoDocument> => {
-    const estabelecimento = await Estabelecimento.getById(id);
+    const estabelecimento = await Estabelecimento.getPorId(id);
     return estabelecimento;
 };
 
