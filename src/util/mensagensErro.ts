@@ -1,6 +1,7 @@
 const AUTH = {
     NOME_USUARIO_INCORRETO: "Nome de usuário incorreto.",
     SENHA_INCORRETA: "Senha incorreta",
+    ERRO_AO_LOGAR: "Ocorreu um erro ao realizar seu login. Tente novamente.",
 };
 
 const ESTABELECIMENTO = {

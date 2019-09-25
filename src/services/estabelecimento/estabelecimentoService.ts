@@ -1,6 +1,6 @@
-"use strict";
-
 import { Estabelecimento, EstabelecimentoDocument } from "../../models/estabelecimento/Estabelecimento";
+import * as gestorService from "../gestor/gestorService";
+import constantes from "../../util/constantes";
 
 /**
  * Retorna os estabelecimento que satisfazerem as condições dadas nos
@@ -26,14 +26,31 @@ export const getPorId = async (id: string): Promise<EstabelecimentoDocument> => 
 };
 
 /**
+ * Salva o Gestor especificado como Gerente do Estabelecimento que teve
+ * o ID especificado.
+ * 
+ * @param {JSON} gestorJSON Gestor a ser salvo como Gerente.
+ * @param {String} idEstabelecimento Estabelecimento a ter seu Gerente salvo.
+ * 
+ * @returns {Promise} Promise de salvamento do Gestor.
+ */
+const salvaGerenteEstabelecimento = async (gestorJSON: any, idEstabelecimento: string): Promise<any> => {
+    gestorJSON.estabelecimento = idEstabelecimento;
+    gestorJSON.permissao = constantes.GESTOR.PERMISSOES.GERENTE;
+    return gestorService.salva(gestorJSON);
+};
+
+/**
  * Salva um estabelecimento.
  * 
- * @param {Estabelecimento|Object} estabelecimento Estabelecimento a ser salvo.
+ * @param {JSON} estabelecimento Estabelecimento a ser salvo.
  * @return {Promise} Promessa contendo o estabelecimento salvo ou um erro.
  */
-export const salva = async (estabelecimentoJSON: JSON): Promise<EstabelecimentoDocument> => {
+export const salva = async (estabelecimentoJSON: any, gestorJSON: any): Promise<EstabelecimentoDocument> => {
     const estabelecimento = new Estabelecimento(estabelecimentoJSON);
-    return await estabelecimento.save();
+    const estabelecimentoSalvo = await estabelecimento.save();
+    await salvaGerenteEstabelecimento(gestorJSON, estabelecimentoSalvo._id);
+    return estabelecimentoSalvo;
 };
 
 /**

@@ -24,15 +24,20 @@ export const loginGestor = async (req: Request, res: Response, next: NextFunctio
         return next(erro);
     };
 
-    if (!gestor.comparaSenha(senha)) {
-        const erro = new APIError(mensagensErro.AUTH.SENHA_INCORRETA, httpStatus.UNAUTHORIZED);
+    try {
+        if (!gestor.comparaSenha(senha)) {
+            const erro = new APIError(mensagensErro.AUTH.SENHA_INCORRETA, httpStatus.UNAUTHORIZED);
+            return next(erro);
+        }
+
+        const token = jwt.sign({
+            idGestor: gestor._id,
+            idEstabelecimento: gestor.estabelecimento,
+            permissao: gestor.permissao
+        }, SESSION_SECRET, { expiresIn: UM_DIA });
+        return res.json({ token });
+    } catch(_) {
+        const erro = new APIError(mensagensErro.AUTH.ERRO_AO_LOGAR, httpStatus.INTERNAL_SERVER_ERROR);
         return next(erro);
     }
-
-    const token = jwt.sign({
-        idGestor: gestor._id,
-        idEstabelecimento: gestor.estabelecimento,
-        permissao: gestor.permissao
-    }, SESSION_SECRET, { expiresIn: UM_DIA });
-    return res.json({ token });
 };

@@ -10,7 +10,7 @@ estabelecimentoRoutes.route("/")
     .get(estabelecimentoController.get)
 
     /** POST /api/estabelecimento - Cria um novo estabelecimento */
-    .post(expressjwt({ secret: SESSION_SECRET }), estabelecimentoController.salva);
+    .post( estabelecimentoController.salva);
 
 estabelecimentoRoutes.route("/categoria")
     /** GET /api/estabelecimentos/categorias - Retornar os estabelecimentos por categoria */

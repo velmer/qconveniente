@@ -59,8 +59,9 @@ export const getPorId = async (req: Request, res: Response, next: NextFunction) 
  */
 export const salva = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const e = await estabelecimentoService.salva(req.body);
-        return res.status(httpStatus.CREATED).json(e);
+        const { estabelecimento, gestor } = req.body;
+        const estabelecimentoSalvo = await estabelecimentoService.salva(estabelecimento, gestor);
+        return res.status(httpStatus.CREATED).json(estabelecimentoSalvo);
     } catch (erro) {
         return next(erro || mensagensErro.ESTABELECIMENTO.SALVAMENTO_ESTABELECIMENTO);
     }
