@@ -1,5 +1,7 @@
 import express from "express";
+import expressjwt from "express-jwt";
 import * as estabelecimentoController from "../../controllers/estabelecimento/estabelecimentoController";
+import { SESSION_SECRET } from "../../config/secrets";
 
 const estabelecimentoRoutes = express.Router();
     
@@ -8,7 +10,7 @@ estabelecimentoRoutes.route("/")
     .get(estabelecimentoController.get)
 
     /** POST /api/estabelecimento - Cria um novo estabelecimento */
-    .post(estabelecimentoController.salva);
+    .post(expressjwt({ secret: SESSION_SECRET }), estabelecimentoController.salva);
 
 estabelecimentoRoutes.route("/categoria")
     /** GET /api/estabelecimentos/categorias - Retornar os estabelecimentos por categoria */
@@ -19,6 +21,6 @@ estabelecimentoRoutes.route("/:idEstabelecimento")
     .get(estabelecimentoController.getPorId)
     
     /** PATCH /api/estabelecimento/:idEstabelecimento */
-    .patch(estabelecimentoController.atualiza);
+    .patch(expressjwt({ secret: SESSION_SECRET }), estabelecimentoController.atualiza);
 
 export default estabelecimentoRoutes;
