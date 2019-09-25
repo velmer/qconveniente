@@ -15,7 +15,7 @@ usuarioRoutes.route("/")
 
 usuarioRoutes.route("/:idUsuario")
     /** GET /api/usuario/:idUsuario - Get usuário */
-    .get(usuarioController.getPorId)
+    .get(expressjwt({ secret: SESSION_SECRET }), usuarioController.getPorId)
     
     /** PATCH /api/usuario/:idUsuario */
     .patch(expressjwt({ secret: SESSION_SECRET }), usuarioController.atualiza)

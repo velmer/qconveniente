@@ -107,21 +107,16 @@ GestorSchema.methods.comparaSenha = function (senha: string): boolean {
  * ou contendo um erro.
  */
 GestorSchema.statics.getPorId = async function (id: string): Promise<any> {
-    return this.findById(id)
-        .exec()
-        .then((gestor: GestorDocument) => {
-            if (gestor) {
-                return gestor;
-            }
-            const erro = new APIError(mensagensErro.GESTOR.GESTOR_NAO_ENCONTRADO, httpStatus.NOT_FOUND);
-            throw erro;
-        })
-        .catch((erro: any) => {
-            if (!(erro instanceof APIError)) {
-                erro = new APIError(mensagensErro.GESTOR.ID_INVALIDO, httpStatus.BAD_REQUEST);
-            }
-            throw erro;
-        });
+    let gestor;
+    try {
+        gestor = await this.findById(id);
+    } catch(_) {
+        throw new APIError(mensagensErro.GESTOR.ID_INVALIDO, httpStatus.BAD_REQUEST);
+    }
+    if (!gestor) {
+        throw new APIError(mensagensErro.GESTOR.GESTOR_NAO_ENCONTRADO, httpStatus.NOT_FOUND);
+    }
+    return gestor;
 };
 
 /**
@@ -132,15 +127,11 @@ GestorSchema.statics.getPorId = async function (id: string): Promise<any> {
  * ou contendo um erro.
  */
 GestorSchema.statics.getPorNomeUsuario = async function (nomeUsuario: string): Promise<any> {
-    return this.findOne({ nomeUsuario })
-        .exec()
-        .then((gestor: GestorDocument) => {
-            if (gestor) {
-                return gestor;
-            }
-            const erro = new APIError(mensagensErro.GESTOR.GESTOR_NAO_ENCONTRADO, httpStatus.NOT_FOUND);
-            throw erro;
-        });
+    const gestor = await this.findOne({ nomeUsuario });
+    if (!gestor) {
+        throw new APIError(mensagensErro.GESTOR.GESTOR_NAO_ENCONTRADO, httpStatus.NOT_FOUND);
+    }
+    return gestor;
 };
 
 export const Gestor: Gestor = model<GestorDocument, Gestor>("Gestor", GestorSchema);

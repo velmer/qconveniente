@@ -121,21 +121,16 @@ UsuarioSchema.methods.comparaSenha = function (senha: string): boolean {
  * ou contendo um erro.
  */
 UsuarioSchema.statics.getPorId = async function (id: string): Promise<any> {
-    return this.findById(id)
-        .exec()
-        .then((usuario: UsuarioDocument) => {
-            if (usuario) {
-                return usuario;
-            }
-            const erro = new APIError(mensagensErro.USUARIO.USUARIO_NAO_ENCONTRADO, httpStatus.NOT_FOUND);
-            throw erro;
-        })
-        .catch((erro: any) => {
-            if (!(erro instanceof APIError)) {
-                erro = new APIError(mensagensErro.USUARIO.ID_INVALIDO, httpStatus.BAD_REQUEST);
-            }
-            throw erro;
-        });
+    let usuario;
+    try {
+        usuario = await this.findById(id);
+    } catch(_) {
+        throw new APIError(mensagensErro.USUARIO.ID_INVALIDO, httpStatus.BAD_REQUEST);
+    }
+    if (!usuario) {
+        throw new APIError(mensagensErro.USUARIO.USUARIO_NAO_ENCONTRADO, httpStatus.NOT_FOUND);
+    }
+    return usuario;
 };
 
 /**
@@ -146,15 +141,11 @@ UsuarioSchema.statics.getPorId = async function (id: string): Promise<any> {
  * ou contendo um erro.
  */
 UsuarioSchema.statics.getPorNomeUsuario = async function (nomeUsuario: string): Promise<any> {
-    return this.findOne({ nomeUsuario })
-        .exec()
-        .then((usuario: UsuarioDocument) => {
-            if (usuario) {
-                return usuario;
-            }
-            const erro = new APIError(mensagensErro.USUARIO.USUARIO_NAO_ENCONTRADO, httpStatus.NOT_FOUND);
-            throw erro;
-        });
+    const usuario = await this.findOne({ nomeUsuario });
+    if (!usuario) {
+        throw new APIError(mensagensErro.USUARIO.USUARIO_NAO_ENCONTRADO, httpStatus.NOT_FOUND);
+    }
+    return usuario;
 };
 
 export const Usuario: Usuario = model<UsuarioDocument, Usuario>("Usuario", UsuarioSchema);
