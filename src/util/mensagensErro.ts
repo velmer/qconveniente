@@ -60,6 +60,7 @@ const USUARIO = {
     USUARIO_NAO_ENCONTRADO: "Usuário não encontrado.",
     ID_INVALIDO: "O ID do Usuário é inválido.",
     BUSCA_USUARIO: "Não foi possível encontrar o Usuário.",
+    BUSCA_USUARIOS: "Não foi possível encontrar os Usuários.",
     SALVAMENTO_USUARIO: "Não foi possível salvar o Usuário.",
     ATUALIZACAO_USUARIO: "Não foi possível atualizar o Usuário.",
     EXCLUSAO_USUARIO: "Não foi possível deletar o Usuário.",
