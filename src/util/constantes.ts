@@ -43,10 +43,18 @@ const REGEX = {
     EMAIL: /^[a-zA-Z0-9.!#$%&"*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
 };
 
+const USUARIO = {
+    NOME_USUARIO_TAMANHO_MINIMO: 3,
+    NOME_USUARIO_TAMANHO_MAXIMO: 30,
+    NOME_COMPLETO_TAMANHO_MINIMO: 5,
+    NOME_COMPLETO_TAMANHO_MAXIMO: 50,
+};
+
 const Constantes = Object.freeze({
     ESTABELECIMENTO,
     GESTOR,
     REGEX,
+    USUARIO,
 
     SENHA_TAMANHO_MINIMO: 6,
     SENHA_TAMANHO_MAXIMO: 20,

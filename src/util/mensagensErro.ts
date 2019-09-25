@@ -56,10 +56,33 @@ const GESTOR = {
     PERMISSAO_INVALIDA: "A permissão ({VALUE}) é inválida.",
 };
 
+const USUARIO = {
+    USUARIO_NAO_ENCONTRADO: "Usuário não encontrado.",
+    ID_INVALIDO: "O ID do Usuário é inválido.",
+    BUSCA_USUARIO: "Não foi possível encontrar o Usuário.",
+    SALVAMENTO_USUARIO: "Não foi possível salvar o Usuário.",
+    ATUALIZACAO_USUARIO: "Não foi possível atualizar o Usuário.",
+    EXCLUSAO_USUARIO: "Não foi possível deletar o Usuário.",
+    NOME_COMPLETO_TAMANHO_MINIMO: "O nome completo do Usuário deve ter no mínimo 5 caracteres.",
+    NOME_COMPLETO_TAMANHO_MAXIMO: "O nome completo do Usuário deve ter no máximo 50 caracteres.",
+    NOME_COMPLETO_OBRIGATORIO: "O nome completo do Usuário é obrigatório.",
+    EMAIL_OBRIGATORIO: "O e-mail do Usuário é obrigatório.",
+    EMAIL_INVALIDO: "O e-mail ({VALUE}) é inválido.",
+    NOME_USUARIO_TAMANHO_MINIMO: "O nome de usuário do Usuário deve ter no mínimo 3 caracteres.",
+    NOME_USUARIO_TAMANHO_MAXIMO: "O nome de usuário do Usuário deve ter no máximo 30 caracteres.",
+    NOME_USUARIO_OBRIGATORIO: "O nome de usuário é obrigatório.",
+    SENHA_OBRIGATORIA: "A senha do Usuário é obrigatória.",
+    CPF_OBRIGATORIO: "O CPF do Usuário é obrigatório.",
+    CPF_INVALIDO: "O CPF ({VALUE}) é inválido.",
+    TELEFONE_OBRIGATORIO: "O telefone do Usuário é obrigatório.",
+    TELEFONE_INVALIDO: "O número de telefone ({VALUE}) do Usuário é inválido.",
+};
+
 const MensagensErro = Object.freeze({
     AUTH,
     ESTABELECIMENTO,
     GESTOR,
+    USUARIO,
 
     SENHA_INVALIDA: "A senha deve ser composta de 6 a 20 caracteres.",
 });
