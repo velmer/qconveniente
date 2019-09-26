@@ -83,6 +83,10 @@ Por fim, a terceira camada é composta pelos models, que são as entidades do no
 
 No QConveniente existem alguns recursos e rotas que só podem ser acessados mediante autenticação. Nossa autenticação é feita utilizando JWT, ou seja, utilizamos tokens para autenticar um determinado usuário. Quando um usuário/gestor se cadastra no sistema ele provê informações, dentre as quais estão um nome de usuário e uma senha, os quais são suas credenciais e serão utilizados para autenticá-lo.
 
+Caso as credenciais estejam corretas, ou seja, existe um usuário com o nome de usuário fornecido e esse tem a senha fornecida, o usuário é autenticado e receberá um token (JWT). Esse token poderá ser enviando no header `Authorization` de requisições que necessitem de autenticação no formato `"Bearer seuToken"`.
+
+Caso as credenciais estejam incorretas, seja por não existir um usuário com o nome de usuário fornecido ou por a senha fornecida não bater com a senha cadastrada, será retornado um erro 401 `Unauthorized`.
+
 ## Usuário
 
 Para um usuário do App poder se autenticar será necessário enviar suas credenciais para a rota de autenticação. Esse envio deve ser feito através de um POST.
@@ -95,6 +99,8 @@ body: {
   "senha": "suaSenhaAqui"
 }
 ```
+
+O token retornado para o usuário terá como Payload um campo `idUsuario`, o qual será, obviamente, o ID do usuário que se autenticou.
 
 ## Gestor
 
@@ -109,9 +115,7 @@ body: {
 }
 ```
 
-Caso as credenciais estejam corretas, ou seja, existe um usuário com o nome de usuário fornecido e esse tem a senha fornecida, o usuário é autenticado e receberá um token (JWT). Esse token poderá ser enviando no header `Authorization` de requisições que necessitem de autenticação no formato `"Bearer seuToken"`.
-
-Caso as credenciais estejam incorretas, seja por não existir um usuário com o nome de usuário fornecido ou por a senha fornecida não bater com a senha cadastrada, será retornado um erro 401 `Unauthorized`.
+O token retornado para o gestor terá como Payload três campos: `idGestor`, `idEstabelecimento` e `permissao`, os quais são o ID do gestor que se autenticou, o ID do estabelecimento a que ele pertence e a sua permissão no sistema, respectivamente.
 
 ## License
 Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the [MIT](LICENSE.txt) License.
