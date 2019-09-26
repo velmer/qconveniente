@@ -56,6 +56,23 @@ const GESTOR = {
     PERMISSAO_INVALIDA: "A permissão ({VALUE}) é inválida.",
 };
 
+const PRODUTO = {
+    PRODUTO_NAO_ENCONTRADO: "Produto não encontrado.",
+    ID_INVALIDO: "O ID do Produto é inválido.",
+    BUSCA_PRODUTO: "Não foi possível encontrar o(s) Produto(s).",
+    SALVAMENTO_PRODUTO: "Não foi possível salvar o Produto.",
+    ATUALIZACAO_PRODUTO: "Não foi possível atualizar o Produto.",
+    EXCLUSAO_PRODUTO: "Não foi possível deletar o Produto.",
+    NOME_TAMANHO_MINIMO: "O nome do Produto deve ter no mínimo 3 caracteres.",
+    NOME_TAMANHO_MAXIMO: "O nome do Produto deve ter no máximo 30 caracteres.",
+    NOME_OBRIGATORIO: "O nome do Produto é obrigatório.",
+    PRECO_OBRIGATORIO: "O preço do Produto é obrigatório.",
+    PRECO_INVALIDO: "O preço do Produto não pode ser negativo.",
+    DESCRICAO_TAMANHO_MAXIMO: "A descrição do Produto deve ter no máximo 150 caracteres.",
+    TAMANHO_MAXIMO: "O tamanho do Produto deve ter no máximo 20 caracteres.",
+    VINCULACAO_ESTABELECIMENTO_OBRIGATORIA: "O Produto deve pertencer a um Estabelecimento.",
+};
+
 const USUARIO = {
     USUARIO_NAO_ENCONTRADO: "Usuário não encontrado.",
     ID_INVALIDO: "O ID do Usuário é inválido.",
@@ -83,6 +100,7 @@ const MensagensErro = Object.freeze({
     AUTH,
     ESTABELECIMENTO,
     GESTOR,
+    PRODUTO,
     USUARIO,
 
     SENHA_INVALIDA: "A senha deve ser composta de 6 a 20 caracteres.",

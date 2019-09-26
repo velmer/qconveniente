@@ -35,6 +35,14 @@ const GESTOR = {
     NOME_USUARIO_TAMANHO_MAXIMO: 30
 };
 
+const PRODUTO = {
+    NOME_TAMANHO_MINIMO: 3,
+    NOME_TAMANHO_MAXIMO: 30,
+    PRECO_MINIMO: 0,
+    DESCRICAO_TAMANHO_MAXIMO: 150,
+    TAMANHO_MAXIMO: 20,
+};
+
 const REGEX = {
     HORA_SEM_PONTUACAO: /^[0-9]{4}$/,
     TELEFONE_SEM_PONTUACAO: /^[1-9]{2}9?[0-9]{8}$/,
@@ -53,6 +61,7 @@ const USUARIO = {
 const Constantes = Object.freeze({
     ESTABELECIMENTO,
     GESTOR,
+    PRODUTO,
     REGEX,
     USUARIO,
 

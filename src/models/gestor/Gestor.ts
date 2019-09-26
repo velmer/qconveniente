@@ -54,7 +54,7 @@ const GestorSchema = new Schema({
         ref: "Estabelecimento",
         autopopulate: true
     },
-}, { collection: "gestores", timestamps: { createdAt: "criadoEm", updatedAt: "atualiadoEm" } });
+}, { collection: "gestores", timestamps: { createdAt: "criadoEm", updatedAt: "atualizadoEm" } });
 
 /**
  * Executa ações necessárias antes do salvamento do Gestor.

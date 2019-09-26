@@ -2,7 +2,7 @@ import httpStatus from "http-status-codes";
 import APIError from "../../util/APIError";
 import mongoose, { Document, Model, Schema } from "mongoose";
 import constantes from "../../util/constantes";
-import mensagensErro from "../../util/MensagensErro";
+import mensagensErro from "../../util/mensagensErro";
 
 /**
  * Document do Tempo de Entrega.
@@ -62,7 +62,7 @@ export interface EstabelecimentoDocument extends Document {
     secoes: SecaoDocument[];
     avaliacao: number;
     inadimplente: boolean;
-    inativo: boolean;
+    ativo: boolean;
     criadoEm: Date;
     atualizadoEm: Date;
 };
@@ -215,9 +215,9 @@ const EstabelecimentoSchema = new Schema({
         type: Boolean,
         default: false
     },
-    inativo: {
+    ativo: {
         type: Boolean,
-        default: false
+        default: true
     }
 }, { timestamps: { createdAt: "criadoEm", updatedAt: "atualizadoEm" } });
 
@@ -239,8 +239,6 @@ EstabelecimentoSchema.pre<EstabelecimentoDocument>("save", function(next) {
  */
 EstabelecimentoSchema.set("toJSON", {
     transform: function (_doc, ret) {
-        delete ret.criadoEm;
-        delete ret.atualizadoEm;
         delete ret.__v;
     }
 });
@@ -253,21 +251,16 @@ EstabelecimentoSchema.set("toJSON", {
  * ou um erro.
  */
 EstabelecimentoSchema.statics.getPorId = async function (id: string): Promise<any> {
-    return this.findById(id)
-        .exec()
-        .then((estabelecimento: EstabelecimentoDocument) => {
-            if (estabelecimento) {
-                return estabelecimento;
-            }
-            const erro = new APIError(mensagensErro.ESTABELECIMENTO.ESTABELECIMENTO_NAO_ENCONTRADO, httpStatus.NOT_FOUND);
-            throw erro;
-        })
-        .catch((erro: any) => {
-            if (!(erro instanceof APIError)) {
-                erro = new APIError(mensagensErro.ESTABELECIMENTO.ID_INVALIDO, httpStatus.BAD_REQUEST);
-            }
-            throw erro;
-        });
+    let estabelecimento;
+    try {
+        estabelecimento = await this.findById(id);
+    } catch(_) {
+        throw new APIError(mensagensErro.ESTABELECIMENTO.ID_INVALIDO, httpStatus.BAD_REQUEST);
+    }
+    if (!estabelecimento) {
+        throw new APIError(mensagensErro.ESTABELECIMENTO.ESTABELECIMENTO_NAO_ENCONTRADO, httpStatus.NOT_FOUND);
+    }
+    return estabelecimento;
 };
 
 export const Estabelecimento: Estabelecimento = mongoose.model<EstabelecimentoDocument, Estabelecimento>("Estabelecimento", EstabelecimentoSchema);
