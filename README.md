@@ -83,5 +83,7 @@ Por fim, a terceira camada é composta pelos models, que são as entidades do no
 
 No QConveniente existem alguns recursos que só podem ser acessados mediante autenticação. Para se autenticar no sistema, o usuário deve prover seu nome de usuário e senha. Caso ambos estejam corretos, será retornado um token JWT, o qual deverá ser enviado nas requisições seguintes que necessitarem de autenticação.
 
+A rota para se autenticar para um usuário é `/api/auth/loginUsuario`. Caso seja autenticação para um gestor, a rota é `/api/auth/loginGestor`.
+
 ## License
 Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the [MIT](LICENSE.txt) License.
