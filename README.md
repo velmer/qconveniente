@@ -79,5 +79,9 @@ A segunda camada é a camada dos services, os quais são responsáveis pela lóg
 
 Por fim, a terceira camada é composta pelos models, que são as entidades do nosso sistema. Uma entidade tem como responsabilidade se comunicar com o MongoDB (nosso BD) para realizar as ações necessárias (por exemplo, consultar, salvar, editar, ou excluir uma entidade). Nossos models são Schemas do Mongoose, o qual é o nosso ODM (*Object Data Mapping*), que realizará o trabalho de converter uma entidade do sistema em documento para ser salvo no BD.
 
+# Autenticação
+
+No QConveniente existem alguns recursos que só podem ser acessados mediante autenticação. Para se autenticar no sistema, o usuário deve prover seu nome de usuário e senha. Caso ambos estejam corretos, será retornado um token JWT, o qual deverá ser enviado nas requisições seguintes que necessitarem de autenticação.
+
 ## License
 Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the [MIT](LICENSE.txt) License.
