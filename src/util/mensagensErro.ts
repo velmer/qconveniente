@@ -59,7 +59,8 @@ const GESTOR = {
 const PRODUTO = {
     PRODUTO_NAO_ENCONTRADO: "Produto não encontrado.",
     ID_INVALIDO: "O ID do Produto é inválido.",
-    BUSCA_PRODUTO: "Não foi possível encontrar o(s) Produto(s).",
+    BUSCA_PRODUTO: "Não foi possível encontrar o Produto.",
+    BUSCA_PRODUTOS: "Não foi possível encontrar os Produtos.",
     SALVAMENTO_PRODUTO: "Não foi possível salvar o Produto.",
     ATUALIZACAO_PRODUTO: "Não foi possível atualizar o Produto.",
     EXCLUSAO_PRODUTO: "Não foi possível deletar o Produto.",
