@@ -8,7 +8,7 @@ interface ItemPedido extends Document {
     preco: number;
     quantidade: number;
     observacao: string;
-    pedido: Schema.Types.ObjectId;
+    produto: Schema.Types.ObjectId;
 }
 
 /**
@@ -51,9 +51,9 @@ const ItemPedidoSchema = new Schema({
         maxlength: [constantes.PEDIDO.OBSERVACAO_ITEM_TAMANHO_MAXIMO, mensagensErro.PEDIDO.OBSERVACAO_ITEM_TAMANHO_MAXIMO],
         trim: true
     },
-    pedido: {
+    produto: {
         type: Schema.Types.ObjectId,
-        ref: "Pedido",
+        ref: "Produto",
         required: [true, mensagensErro.PEDIDO.ITEM_VINCULACAO_PRODUTO_OBRIGATORIA],
         autopopulate: true
     },
