@@ -56,6 +56,35 @@ const GESTOR = {
     PERMISSAO_INVALIDA: "A permissão ({VALUE}) é inválida.",
 };
 
+const PEDIDO = {
+    PEDIDO_NAO_ENCONTRADO: "Pedido não encontrado.",
+    ID_INVALIDO: "O ID do Pedido é inválido.",
+    BUSCA_PEDIDO: "Não foi possível encontrar o(s) Pedido(s).",
+    SALVAMENTO_PEDIDO: "Não foi possível salvar o Pedido.",
+    ATUALIZACAO_PEDIDO: "Não foi possível atualizar o Pedido.",
+    EXCLUSAO_PEDIDO: "Não foi possível deletar o Pedido.",
+    VALOR_TOTA_INVALIDO: "O valor total do Pedido não pode ser negativo.",
+    VALOR_TOTAL_OBRIGATORIO: "O valor total do Pedido é obrigatório.",
+    VALOR_ENTREGA_INVALIDO: "O valor da entrega do Pedido não pode ser negativo.",
+    VALOR_ENTREGA_OBRIGATORIO: "O valor da entrega do Pedido é obrigatório.",
+    FORMA_PAGAMENTO_INVALIDA: "A forma de pagamento ({VALUE}) do Pedido é inválida.",
+    FORMA_PAGAMENTO_OBRIGATORIA: "A forma de pagamento do Pedido é obrigatória.",
+    TROCO_INVALIDO: "O troco do Pedido não pode ser negativo.",
+    AVALIACAO_MINIMA: "A avaliação mínima para o Pedido é 1.",
+    AVALIACAO_MAXIMA: "A avaliação máxima para o Pedido é 5.",
+    STATUS_INVALIDO: "O status ({VALUE}) do Pedido é inválido.",
+    STATUS_OBRIGATORIO: "O status do Pedido é obrigatório.",
+    PEDIDO_VINCULACAO_ESTABELECIMENTO_OBRIGATORIA: "O Pedido deve pertencer a um Estabelecimento.",
+    PEDIDO_VINCULACAO_USUARIO_OBRIGATORIA: "O Pedido deve pertencer a um Usuário.",
+    ITENS_OBRIGATORIOS: "O Pedido deve possuir pelo menos um item.",
+    PRECO_ITEM_INVALIDO: "O preço de um item do Pedido não pode ser negativo.",
+    PRECO_ITEM_OBRIGATORIO: "O preço de um item do Pedido é obrigatório.",
+    QUANTIDADE_MINIMA_ITEM: "A quantidade mínima de um item do Pedido é 1.",
+    QUANTIDADE_ITEM_OBRIGATÓRIA: "A quantidade de um item do Pedido é obrigatória.",
+    ITEM_VINCULACAO_PRODUTO_OBRIGATORIA: "Um item do Pedido deve ser vinculado a um Produto.",
+    OBSERVACAO_ITEM_TAMANHO_MAXIMO: "O tamanho máximo da observação de um item de um Pedido é 150.",
+};
+
 const PRODUTO = {
     PRODUTO_NAO_ENCONTRADO: "Produto não encontrado.",
     ID_INVALIDO: "O ID do Produto é inválido.",
@@ -102,6 +131,7 @@ const MensagensErro = Object.freeze({
     ESTABELECIMENTO,
     GESTOR,
     PRODUTO,
+    PEDIDO,
     USUARIO,
 
     SENHA_INVALIDA: "A senha deve ser composta de 6 a 20 caracteres.",
