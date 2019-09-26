@@ -75,7 +75,7 @@ const ProdutoSchema = new Schema({
     idSubSecao: {
         type: Schema.Types.ObjectId
     }
-}, { collection: "gestores", timestamps: { createdAt: "criadoEm", updatedAt: "atualizadoEm" } });
+}, { timestamps: { createdAt: "criadoEm", updatedAt: "atualizadoEm" } });
 
 /**
  * Define como o Produto será convertido para JSON.
