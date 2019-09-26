@@ -59,7 +59,8 @@ const GESTOR = {
 const PEDIDO = {
     PEDIDO_NAO_ENCONTRADO: "Pedido não encontrado.",
     ID_INVALIDO: "O ID do Pedido é inválido.",
-    BUSCA_PEDIDO: "Não foi possível encontrar o(s) Pedido(s).",
+    BUSCA_PEDIDO: "Não foi possível encontrar o Pedido.",
+    BUSCA_PEDIDOS: "Não foi possível encontrar os Pedidos.",
     SALVAMENTO_PEDIDO: "Não foi possível salvar o Pedido.",
     ATUALIZACAO_PEDIDO: "Não foi possível atualizar o Pedido.",
     EXCLUSAO_PEDIDO: "Não foi possível deletar o Pedido.",
