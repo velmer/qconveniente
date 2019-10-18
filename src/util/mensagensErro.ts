@@ -1,7 +1,9 @@
 const AUTH = {
     NOME_USUARIO_INCORRETO: "Nome de usuário incorreto.",
     SENHA_INCORRETA: "Senha incorreta",
+    SENHA_INVALIDA: "A senha deve ser composta de 6 a 20 caracteres.",
     ERRO_AO_LOGAR: "Ocorreu um erro ao realizar seu login. Tente novamente.",
+    FORBIDDEN: "Você não possui permissão para acessar esse recurso.",
 };
 
 const ESTABELECIMENTO = {
@@ -134,8 +136,6 @@ const MensagensErro = Object.freeze({
     PRODUTO,
     PEDIDO,
     USUARIO,
-
-    SENHA_INVALIDA: "A senha deve ser composta de 6 a 20 caracteres.",
 });
 
 export default MensagensErro;

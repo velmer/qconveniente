@@ -1,6 +1,6 @@
 import { Estabelecimento, EstabelecimentoDocument } from "../../models/estabelecimento/Estabelecimento";
 import * as gestorService from "../gestor/gestorService";
-import constantes from "../../util/constantes";
+import { PermissaoGestor } from "../../models/gestor/Gestor";
 
 /**
  * Retorna os estabelecimento que satisfazerem as condições dadas nos
@@ -36,7 +36,7 @@ export const getPorId = async (id: string): Promise<EstabelecimentoDocument> => 
  */
 const salvaGerenteEstabelecimento = async (gestorJSON: any, idEstabelecimento: string): Promise<any> => {
     gestorJSON.estabelecimento = idEstabelecimento;
-    gestorJSON.permissao = constantes.GESTOR.PERMISSOES.GERENTE;
+    gestorJSON.permissao = PermissaoGestor.GERENTE;
     return gestorService.salva(gestorJSON);
 };
 

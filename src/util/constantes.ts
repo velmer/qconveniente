@@ -26,11 +26,6 @@ const ESTABELECIMENTO = {
 };
 
 const GESTOR = {
-    PERMISSOES: {
-        ADMIN: "admin",
-        GERENTE: "gerente",
-        FUNCIONARIO: "funcionario"
-    },
     NOME_USUARIO_TAMANHO_MINIMO: 3,
     NOME_USUARIO_TAMANHO_MAXIMO: 30
 };

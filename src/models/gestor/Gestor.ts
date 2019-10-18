@@ -25,6 +25,12 @@ interface Gestor extends Model<GestorDocument> {
     getPorNomeUsuario(nomeUsuario: string): Promise<any>;
 }
 
+export enum PermissaoGestor {
+    ADMIN = "admin",
+    GERENTE = "gerente",
+    FUNCIONARIO = "funcionario"
+};
+
 /**
  * Gestor Schema
  */
@@ -44,7 +50,7 @@ const GestorSchema = new Schema({
     permissao: {
         type: String,
         enum: {
-            values: Object.values(constantes.GESTOR.PERMISSOES),
+            values: Object.values(PermissaoGestor),
             message: mensagensErro.GESTOR.PERMISSAO_INVALIDA
         },
         required: [true, mensagensErro.GESTOR.PERMISSAO_OBRIGATORIA]
