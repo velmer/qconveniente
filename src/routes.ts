@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.use("/auth", authRoutes);
 router.use("/estabelecimento", estabelecimentoRoutes);
-router.use("/gestor", expressjwt({ secret: SESSION_SECRET }), gestorRoutes);
+router.use("/gestor", gestorRoutes);
 router.use("/pedido", expressjwt({ secret: SESSION_SECRET }), pedidoRoutes);
 router.use("/produto", produtoRoutes);
 router.use("/usuario", usuarioRoutes);
