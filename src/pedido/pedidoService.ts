@@ -1,4 +1,4 @@
-import { Pedido, PedidoDocument } from "../../models/pedido/Pedido";
+import { Pedido, PedidoDocument } from "./Pedido";
 
 /**
  * Retorna os pedidos que satisfazerem as condições dadas nos

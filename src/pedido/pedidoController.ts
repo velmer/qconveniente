@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as httpStatus from "http-status-codes";
-import * as pedidoService from "../../services/pedido/pedidoService";
-import mensagensErro from "../../util/mensagensErro";
+import * as pedidoService from "./pedidoService";
+import mensagensErro from "../util/mensagensErro";
 
 const ID_PEDIDO_PARAM_CHAVE = "idPedido";
 const PEDIDO_EXCLUIDO_COM_SUCESSO = "Pedido excluído com sucesso!";
