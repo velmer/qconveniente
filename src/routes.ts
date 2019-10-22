@@ -3,7 +3,7 @@ import authRoutes from "./routes/auth/authRoutes";
 import estabelecimentoRoutes from "./estabelecimento/estabelecimentoRoutes";
 import gestorRoutes from "./gestor/gestorRoutes";
 import pedidoRoutes from "./pedido/pedidoRoutes";
-import produtoRoutes from "./routes/produto/produtoRoutes";
+import produtoRoutes from "./produto/produtoRoutes";
 import usuarioRoutes from "./routes/usuario/usuarioRoutes";
 import expressjwt from "express-jwt";
 import { SESSION_SECRET } from "./config/secrets";

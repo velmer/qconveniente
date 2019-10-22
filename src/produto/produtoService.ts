@@ -1,4 +1,4 @@
-import { Produto, ProdutoDocument } from "../../models/produto/Produto";
+import { Produto, ProdutoDocument } from "./Produto";
 
 /**
  * Retorna os produtos que satisfazerem as condições dadas nos

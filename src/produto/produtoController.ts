@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as httpStatus from "http-status-codes";
-import * as produtoService from "../../services/produto/produtoService";
-import mensagensErro from "../../util/mensagensErro";
+import * as produtoService from "./produtoService";
+import mensagensErro from "../util/mensagensErro";
 
 const ID_PRODUTO_PARAM_CHAVE = "idProduto";
 

@@ -1,7 +1,7 @@
 import express from "express";
-import * as produtoController from "../../controllers/produto/produtoController";
+import * as produtoController from "./produtoController";
 import expressjwt from "express-jwt";
-import { SESSION_SECRET } from "../../config/secrets";
+import { SESSION_SECRET } from "../config/secrets";
 
 
 const produtoRoutes = express.Router();
