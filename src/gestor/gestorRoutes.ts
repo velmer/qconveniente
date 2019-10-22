@@ -1,8 +1,8 @@
 import express from "express";
 import expressjwt from "express-jwt";
 import * as gestorController from "../../controllers/gestor/gestorController";
-import * as autorizacaoMiddleware from "../../middlewares/autorizacaoMiddleware";
-import { SESSION_SECRET } from "../../config/secrets";
+import * as autorizacaoMiddleware from "../middlewares/autorizacaoMiddleware";
+import { SESSION_SECRET } from "../config/secrets";
 
 const gestorRoutes = express.Router();
 

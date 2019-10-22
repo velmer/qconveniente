@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as httpStatus from "http-status-codes";
-import * as gestorService from "../../services/gestor/gestorService";
-import mensagensErro from "../../util/mensagensErro";
+import * as gestorService from "./gestorService";
+import mensagensErro from "../util/mensagensErro";
 
 /**
  * Retorna uma lista de gestores que satisfizerem os parâmetros
