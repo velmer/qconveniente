@@ -1,6 +1,6 @@
-import { Estabelecimento, EstabelecimentoDocument } from "../../models/estabelecimento/Estabelecimento";
+import { Estabelecimento, EstabelecimentoDocument } from "./Estabelecimento";
 import * as gestorService from "../gestor/gestorService";
-import { PermissaoGestor } from "../../models/gestor/Gestor";
+import { PermissaoGestor } from "../gestor/Gestor";
 
 /**
  * Retorna os estabelecimento que satisfazerem as condições dadas nos

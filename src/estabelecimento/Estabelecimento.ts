@@ -1,8 +1,8 @@
 import httpStatus from "http-status-codes";
-import APIError from "../../util/APIError";
+import APIError from "../util/APIError";
 import mongoose, { Document, Model, Schema } from "mongoose";
-import constantes from "../../util/constantes";
-import mensagensErro from "../../util/mensagensErro";
+import constantes from "../util/constantes";
+import mensagensErro from "../util/mensagensErro";
 
 /**
  * Document do Tempo de Entrega.

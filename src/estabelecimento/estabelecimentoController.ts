@@ -2,8 +2,8 @@
 
 import { Request, Response, NextFunction } from "express";
 import * as httpStatus from "http-status-codes";
-import * as estabelecimentoService from "../../services/estabelecimento/estabelecimentoService";
-import mensagensErro from "../../util/mensagensErro";
+import * as estabelecimentoService from "./estabelecimentoService";
+import mensagensErro from "../util/mensagensErro";
 
 /**
  * Retorna uma lista de estabelecimentos que satisfizerem os parâmetros

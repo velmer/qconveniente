@@ -1,8 +1,8 @@
 import express from "express";
 import expressjwt from "express-jwt";
-import * as estabelecimentoController from "../../controllers/estabelecimento/estabelecimentoController";
-import * as autorizacaoMiddleware from "../../middlewares/autorizacaoMiddleware";
-import { SESSION_SECRET } from "../../config/secrets";
+import * as estabelecimentoController from "./estabelecimentoController";
+import * as autorizacaoMiddleware from "../middlewares/autorizacaoMiddleware";
+import { SESSION_SECRET } from "../config/secrets";
 
 const estabelecimentoRoutes = express.Router();
 

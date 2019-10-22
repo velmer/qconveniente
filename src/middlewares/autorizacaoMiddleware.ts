@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { PermissaoGestor } from "../models/gestor/Gestor";
+import { PermissaoGestor } from "../gestor/Gestor";
 import mensagensErro from "../util/mensagensErro";
 import APIError from "../util/APIError";
 import _ from "lodash";
