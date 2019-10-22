@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as httpStatus from "http-status-codes";
-import * as usuarioService from "../../services/usuario/usuarioService";
-import mensagensErro from "../../util/mensagensErro";
+import * as usuarioService from "./usuarioService";
+import mensagensErro from "../util/mensagensErro";
 
 const ID_USUARIO_PARAM_CHAVE = "idUsuario";
 const USUARIO_EXCLUIDO_COM_SUCESSO = "Usuário excluído com sucesso!";

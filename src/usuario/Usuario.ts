@@ -1,11 +1,11 @@
 import bcrypt from "bcrypt";
-import constantes from "../../util/constantes";
+import constantes from "../util/constantes";
 import httpStatus from "http-status-codes";
 import _ from "lodash";
-import mensagensErro from "../../util/mensagensErro";
+import mensagensErro from "../util/mensagensErro";
 import { Document, Model, model, Schema } from "mongoose";
-import APIError from "../../util/APIError";
-import SenhaUtil from "../../util/senhaUtil";
+import APIError from "../util/APIError";
+import SenhaUtil from "../util/senhaUtil";
 
 /**
  * Document do Usuário.

@@ -1,4 +1,4 @@
-import { Usuario, UsuarioDocument } from "../../models/usuario/Usuario";
+import { Usuario, UsuarioDocument } from "./Usuario";
 
 /**
  * Retorna os usuários que satisfazerem as condições dadas nos

@@ -1,7 +1,7 @@
 import express from "express";
-import * as usuarioController from "../../controllers/usuario/usuarioController";
+import * as usuarioController from "./usuarioController";
 import expressjwt from "express-jwt";
-import { SESSION_SECRET } from "../../config/secrets";
+import { SESSION_SECRET } from "../config/secrets";
 
 
 const usuarioRoutes = express.Router();
