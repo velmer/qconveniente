@@ -8,3 +8,5 @@ coverage/*
 /src/public/
 # custom definition files
 /src/types/
+# PM2 ecosystem config file
+ecosystem.config.js
