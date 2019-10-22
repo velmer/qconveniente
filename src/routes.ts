@@ -1,5 +1,5 @@
 import express from "express";
-import authRoutes from "./routes/auth/authRoutes";
+import authRoutes from "./auth/authRoutes";
 import estabelecimentoRoutes from "./estabelecimento/estabelecimentoRoutes";
 import gestorRoutes from "./gestor/gestorRoutes";
 import pedidoRoutes from "./pedido/pedidoRoutes";

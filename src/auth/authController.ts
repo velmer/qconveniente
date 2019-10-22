@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import APIError from "../../util/APIError";
+import APIError from "../util/APIError";
 import jwt from "jsonwebtoken";
 import * as httpStatus from "http-status-codes";
-import * as gestorService from "../../gestor/gestorService";
-import * as usuarioService from "../../usuario/usuarioService";
-import mensagensErro from "../../util/mensagensErro";
-import { SESSION_SECRET } from "../../config/secrets";
+import * as gestorService from "../gestor/gestorService";
+import * as usuarioService from "../usuario/usuarioService";
+import mensagensErro from "../util/mensagensErro";
+import { SESSION_SECRET } from "../config/secrets";
 
 const UM_DIA = 86400;
 
