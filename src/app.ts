@@ -22,6 +22,12 @@ process.on("unhandledRejection", e => {
     process.exit(1);
 });
 
+process.on("SIGINT", () => {
+    mongoose.disconnect((err: any) => {
+        process.exit(err ? 1 : 0);
+    });
+});
+
 // Connect to MongoDB
 const MongoStore = mongo(session);
 const mongoUrl = MONGODB_URI;
