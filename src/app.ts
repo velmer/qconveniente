@@ -12,6 +12,16 @@ import { MONGODB_URI, SESSION_SECRET } from "./config/secrets";
 import routes from "./routes";
 import APIError from "./util/APIError";
 
+process.on("uncaughtException", e => {
+    console.log(e);
+    process.exit(1);
+});
+
+process.on("unhandledRejection", e => {
+    console.log(e);
+    process.exit(1);
+});
+
 // Connect to MongoDB
 const MongoStore = mongo(session);
 const mongoUrl = MONGODB_URI;
@@ -24,7 +34,7 @@ mongoose.connect(mongoUrl, {
     () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
 ).catch(err => {
     console.log("MongoDB connection error. Please make sure MongoDB is running. " + err);
-    // process.exit();
+    process.exit(1);
 });
 
 // Create Express server
@@ -58,15 +68,16 @@ app.use("/api", routes);
 // if error is not an instanceOf APIError, convert it.
 app.use((err: any, _req: Request, _res: Response, next: NextFunction) => {
     if (err instanceof mongoose.Error.ValidationError) {
+        const errIsPublic = true;
         const messageDefault = "Validation failed";
         const unifiedErrorMessage = Object.keys(err.errors)
             .map(errorKey => err.errors[errorKey].message)
             .filter(message => !message.includes(messageDefault)) // Remove mongoose duplicated messages
             .join(" ");
-        const error = new APIError(unifiedErrorMessage, httpStatus.BAD_REQUEST, true);
+        const error = new APIError(unifiedErrorMessage, httpStatus.BAD_REQUEST, errIsPublic);
         return next(error);
     } else if (!(err instanceof APIError)) {
-        const apiError = new APIError(err.message, err.status, err.isPublic);
+        const apiError = new APIError(err.message, err.status);
         return next(apiError);
     }
     return next(err);
@@ -74,7 +85,8 @@ app.use((err: any, _req: Request, _res: Response, next: NextFunction) => {
 
 // catch 404 and forward to error handler
 app.use((_req, _res, next) => {
-    const err = new APIError("Recurso não encontrado.", httpStatus.NOT_FOUND);
+    const errIsPublic = true;
+    const err = new APIError("Recurso não encontrado.", httpStatus.NOT_FOUND, errIsPublic);
     return next(err);
 });
 
