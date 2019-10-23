@@ -16,7 +16,7 @@ const server = app.listen(app.get("port"), () => {
         app.get("port"),
         app.get("env")
     );
-    process.send("ready");
+    process.send && process.send("ready");
 });
 
 export default server;
