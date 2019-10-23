@@ -1,8 +1,11 @@
 import httpStatus from "http-status-codes";
 import APIError from "../util/APIError";
 import mongoose, { Document, Model, Schema } from "mongoose";
+import RedisClientSingletonWrapper from "../cache/RedisClientSingletonWrapper";
 import constantes from "../util/constantes";
 import mensagensErro from "../util/mensagensErro";
+
+const REDIS_CACHE_PREFIX = "estabelecimento-";
 
 /**
  * Document do Tempo de Entrega.
@@ -244,6 +247,15 @@ EstabelecimentoSchema.set("toJSON", {
 });
 
 /**
+ * Simula um sleep.
+ * 
+ * @param ms Tempo, em milissegundos, a passar em espera.
+ */
+const sleep = (ms: number) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+};
+
+/**
  * Retorna um Estabelecimento dado o ID deste.
  *
  * @param {string} id ID do Estabelecimento a ser buscado.
@@ -251,16 +263,27 @@ EstabelecimentoSchema.set("toJSON", {
  * ou um erro.
  */
 EstabelecimentoSchema.statics.getPorId = async function (id: string): Promise<any> {
-    let estabelecimento;
-    try {
-        estabelecimento = await this.findById(id);
-    } catch(_) {
-        throw new APIError(mensagensErro.ESTABELECIMENTO.ID_INVALIDO, httpStatus.BAD_REQUEST);
-    }
-    if (!estabelecimento) {
-        throw new APIError(mensagensErro.ESTABELECIMENTO.ESTABELECIMENTO_NAO_ENCONTRADO, httpStatus.NOT_FOUND);
-    }
-    return estabelecimento;
+    const CHAVE_CACHE = `${REDIS_CACHE_PREFIX}${id}`;
+    const self = this;
+    return new Promise((resolve, reject) => {
+        RedisClientSingletonWrapper.getInstance().get(CHAVE_CACHE, async (_erro, estabelecimentoCache) => {
+            if (estabelecimentoCache) {
+                return resolve(JSON.parse(estabelecimentoCache));
+            }
+            await sleep(500);
+            let estabelecimento;
+            try {
+                estabelecimento = await self.findById(id);
+            } catch(_) {
+                reject(new APIError(mensagensErro.ESTABELECIMENTO.ID_INVALIDO, httpStatus.BAD_REQUEST));
+            }
+            if (!estabelecimento) {
+                reject(new APIError(mensagensErro.ESTABELECIMENTO.ESTABELECIMENTO_NAO_ENCONTRADO, httpStatus.NOT_FOUND));
+            }
+            RedisClientSingletonWrapper.getInstance().set(CHAVE_CACHE, JSON.stringify(estabelecimento), "EX", 10);
+            return resolve(estabelecimento);
+       });
+    });
 };
 
 export const Estabelecimento: Estabelecimento = mongoose.model<EstabelecimentoDocument, Estabelecimento>("Estabelecimento", EstabelecimentoSchema);
