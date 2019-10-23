@@ -22,7 +22,7 @@ const configuraMongoDB = () => {
         useCreateIndex: true,
         useFindAndModify: false
     }).catch(err => {
-        console.log("Erro ao se conectar com MongoDB. Verifique se o MongoDB está rodando. " + err);
+        console.log(`Erro ao se conectar com MongoDB. Verifique se o MongoDB está rodando. ${err}`);
         process.exit(1);
     });
 };
@@ -32,6 +32,11 @@ const configuraMongoDB = () => {
  */
 const configuraRedis = () => {
     RedisClientSingletonWrapper.configuraCliente(REDIS_PORT);
+    const redisClient = RedisClientSingletonWrapper.getInstance();
+    redisClient.on("error", err => {
+        console.log(`Erro ao se conectar com o Redis. Verifique se o Redis Server está rodando. ${err}`);
+        process.exit(1);
+    });
 };
 
 /**

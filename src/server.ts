@@ -8,11 +8,11 @@ import app from "./app";
 app.use(errorHandler());
 
 /**
- * Start Express server.
+ * Inicia Express Server.
  */
 const server = app.listen(app.get("port"), () => {
     console.log(
-        "App is running at http://localhost:%d in %s mode",
+        "App rodando http://localhost:%d em modo %s",
         app.get("port"),
         app.get("env")
     );
