@@ -6,7 +6,11 @@ import mongoose from "mongoose";
 import bluebird from "bluebird";
 import routes from "./routes";
 import * as erroMiddleware from "./middlewares/erroMiddleware";
+import RedisClientSingletonWrapper from "./cache/RedisClientSingletonWrapper";
 import { MONGODB_URI } from "./config/secrets";
+
+const SERVER_PORT = process.env.PORT || 8080;
+const REDIS_PORT = parseInt(process.env.REDIS_PORT) || 6379;
 
 /**
  * Configura conexão com o MongoDB através do Mongoose.
@@ -24,13 +28,20 @@ const configuraMongoDB = () => {
 };
 
 /**
+ * Configura o Redis Client para ser utilizado como cache global.
+ */
+const configuraRedis = () => {
+    RedisClientSingletonWrapper.configuraCliente(REDIS_PORT);
+};
+
+/**
  * Configura a Aplicação Express especificada com as propriedades básicas para
  * sua criação.
  * 
  * @param app Aplicação Express.
  */
 const configuraExpressServer = (app: core.Express) => {
-    app.set("port", process.env.PORT || 8080);
+    app.set("port", SERVER_PORT);
     app.use(compression());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,6 +59,7 @@ const configuraRotas = (app: core.Express) => {
 };
 
 configuraMongoDB();
+configuraRedis();
 const app = express();
 configuraExpressServer(app);
 configuraRotas(app);
