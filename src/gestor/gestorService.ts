@@ -1,4 +1,4 @@
-import { Gestor, GestorDocument } from "../../models/gestor/Gestor";
+import { Gestor, GestorDocument } from "./Gestor";
 
 /**
  * Retorna os gestores que satisfazerem as condições dadas nos

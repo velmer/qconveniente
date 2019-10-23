@@ -1,6 +1,6 @@
 import express from "express";
 import expressjwt from "express-jwt";
-import * as gestorController from "../../controllers/gestor/gestorController";
+import * as gestorController from "./gestorController";
 import * as autorizacaoMiddleware from "../middlewares/autorizacaoMiddleware";
 import { SESSION_SECRET } from "../config/secrets";
 
