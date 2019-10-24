@@ -68,7 +68,7 @@ Todas as regras de negócios e casos de uso do QConveniente estão disponíveis 
 # Arquitetura
 
 <p align="center">
-  <img src="qconveniente-arquitetura.jpg" alt="Arquitetura" width="400">
+  <img src="img/qconveniente-arquitetura.jpg" alt="Arquitetura" width="400">
 </p>
 
 A nossa API REST é construída em cima de uma arquitetura de 3 Camadas.
@@ -116,6 +116,49 @@ body: {
 ```
 
 O token retornado para o gestor terá como Payload três campos: `idGestor`, `idEstabelecimento` e `permissao`, os quais são o ID do gestor que se autenticou, o ID do estabelecimento a que ele pertence e a sua permissão no sistema, respectivamente.
+
+# Escala
+
+Node.js executa utilizando apenas um core do processador da máquina, mesmo ela possuindo mais cores disponíveis. Nesse sentido, poderíamos aumentar a escala da nossa aplicação caso utilizássemos todos os cores disponíveis na CPU. O Node.js provê um módulo `Cluster`, o qual permite aumentar a escala da sua aplicação, porém para utilizá-lo precisamos manipular as instâncias criadas na mão, realizando *forks* a partir do cluster principal para criá-las, por exemplo, dentro do código da nossa aplicação. Portanto, seria interessante realizar clusterização, mas não ter que lidar com detalhes minuciosos da sua implementação. Dessa forma, vamos utilizar o PM2, um gerenciador de processos com um balanceador de carga embutido (*built-in*), o qual utiliza por baixo o módulo `Cluster` do Node.js.
+
+A vantagem de utilizar o PM2 é que o código da aplicação mantém-se o mesmo, nós só precisamos criar um arquivo de configuração que o PM2 utilizará para criar e gerenciar nossas instâncias. Para acessar nosso arquivo de configuração clique [aqui](ecosystem.config.ts).
+
+# Desempenho
+
+Além de aumentar a escala da nossa aplicação, melhorando a quantidade de requisições que a mesma consegue atender, nós podemos responder cada uma dessas requisições mais rapidamente, melhorando agora o desempenho da nossa aplicação. Para tal, nós utilizaremos cache na nossa camada `Model` do nosso sistema, a qual é a camada que acessa o nosso banco de dados MongoDB. O acesso ao BD é lento - acessa o disco rígido -, aumentando a latência das respostas aos clientes, por isso iremos "cachear" tais acessos.
+
+Poderíamos implementar nosso próprio cache dentro da aplicação, mas isso aumentaria a complexidade da mesma consideravelmente, visto que precisariámos implementar também as políticas de acesso ao cache, políticas de substituição de entradas quando o cache atingisse sua capacidade máxima, entre outras políticas e regras. Além disso, estaríamos criando um cache para cada instância da aplicação, ou seja, não poderíamos usufruir da clusterização feita pelo PM2. Para usufruir da clusterização, necessitamos utilizar um cache externo a nossa aplicação, um cache que seja distribuído.
+
+Nesse sentido, utilizaremos o Redis, um banco de dados chave-valor **em memória**, como cache. Dessa forma, nós conseguimos configurar e executar o Redis independente da nossa aplicação, utilizando-o de maneira distribuída, sem precisar se preocupar com que instância Node.js da nossa aplicação está sendo requisitada.
+
+## Fazendo cache da busca de Estabelecimentos
+
+## Fluxo de execução sem cache
+
+Sem cache, tudo que é necessário fazer é buscar o Estabelecimento pelo seu ID e tratar os casos de erro, que são o de ID inválido e o do Estabelecimento não existir no BD.
+
+<p align="center">
+  <img src="img/estabelecimento-getPorId-sem-cache.png" width="800">
+  <p align="center">Estabelecimento.getPorId SEM Cache</p>
+</p>
+
+
+## Fluxo de execução com cache
+
+Com cache, agora precisamos acessar o Redis e buscar a chave que pode ter o Estabelecimento em questão como valor. Essa chave é formada da seguinte forma: "estabelecimento-IdDoEstabelecimento".
+
+Em seguida, verificamos se o Estabelecimento recuperado do cache existe, caso exista, nós podemos retorná-lo como JSON. Caso contrário, será necessário buscá-lo no banco de dados (adicionando uma espera de 0,5 segundos como solicitado).
+
+Por fim, recuperando o Estabelecimento com sucesso do banco, para que em uma próxima requisição o cache possa ser utilizado, inserimos o Estabelecimento recuperado no cache como string utilizando `JSON.stringfy`.
+
+<p align="center">
+  <img src="img/estabelecimento-getPorId-sem-cache.png" width="800">
+  <p align="center">Estabelecimento.getPorId COM Cache</p>
+</p>
+
+## Teste de Desempenho
+
+Para testar e comprovar a melhora no desempenho da nossa aplicação,
 
 ## License
 Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the [MIT](LICENSE.txt) License.
