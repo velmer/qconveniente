@@ -1,0 +1,17 @@
+config:
+  target: 'http://localhost:8080/api/estabelecimento/5d86374c75aa2122349258c5'
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: 'Warm up the application'
+    - duration: 120
+      arrivalRate: 5
+      rampTo: 50
+      name: 'Ramp up to max load'
+    - duration: 600
+      arrivalRate: 50
+      name: 'Susteined max load'
+scenarios:
+  - flow:
+    - get:
+        url: '/'
