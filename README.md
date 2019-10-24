@@ -158,7 +158,19 @@ Por fim, recuperando o Estabelecimento com sucesso do banco, para que em uma pr�
 
 ## Teste de Desempenho
 
-Para testar e comprovar a melhora no desempenho da nossa aplicação,
+Para testar e comprovar a melhora no desempenho da nossa aplicação, realizei um teste de desempenho que durou 30s com um total de 100 mil requisições. O mesmo teste foi realizado com o sistema não utilizando e em seguida utilizando o cache.
+
+Sem o cache, o servidor conseguiu responder 99949 das 100 mil requisições realizadas, tendo 51 delas retornando timeout. Já com o cache, o servidor conseguiu responder sem problemas todas as 100 mil requisições.
+
+|    Tipo    | Duração | Requisições respondidas | Tempo Mínimo Resposta | Tempo Médio Resposta | Tempo Máximo Resposta |
+| ---------- | ------- | ----------------------- | --------------------- | -------------------- | --------------------- |
+| Sem Cache  |  170s   |         99949           | 543,7s | 1.568,1s | 67,3s | 
+| Com Cache  |  130s   |         100000          | 2,1s | 2,7s | 1,5s |
+
+
+Para mais detalhes:
+- [Resultados sem cache](\load_test_reports\teste-sem-cache.html)
+- [Resultados com cache](\load_test_reports\teste-com-cache.html)
 
 ## License
 Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the [MIT](LICENSE.txt) License.
