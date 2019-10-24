@@ -152,7 +152,7 @@ Em seguida, verificamos se o Estabelecimento recuperado do cache existe, caso ex
 Por fim, recuperando o Estabelecimento com sucesso do banco, para que em uma próxima requisição o cache possa ser utilizado, inserimos o Estabelecimento recuperado no cache como string utilizando `JSON.stringfy`.
 
 <p align="center">
-  <img src="img/estabelecimento-getPorId-sem-cache.png" width="800">
+  <img src="img/estabelecimento-getPorId-com-cache.png" width="800">
   <p align="center">Estabelecimento.getPorId COM Cache</p>
 </p>
 
@@ -164,8 +164,8 @@ Sem o cache, o servidor conseguiu responder 99949 das 100 mil requisições real
 
 |    Tipo    | Duração | Requisições respondidas | Tempo Mínimo Resposta | Tempo Médio Resposta | Tempo Máximo Resposta |
 | ---------- | ------- | ----------------------- | --------------------- | -------------------- | --------------------- |
-| Sem Cache  |  170s   |         99949           | 543,7s | 1.568,1s | 67,3s | 
-| Com Cache  |  130s   |         100000          | 2,1s | 2,7s | 1,5s |
+| Sem Cache  |  170s   |         99949           | 0.543s | 1.568s | 67.3s | 
+| Com Cache  |  130s   |         100000          | 0.21s | 0.27s | 1,5s |
 
 
 Para mais detalhes:
