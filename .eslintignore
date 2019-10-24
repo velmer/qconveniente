@@ -9,4 +9,4 @@ coverage/*
 # custom definition files
 /src/types/
 # PM2 ecosystem config file
-ecosystem.config.ts
+ecosystem.config.js
