@@ -7,12 +7,26 @@ import { Document, Model, model, Schema } from "mongoose";
 import APIError from "../util/APIError";
 import SenhaUtil from "../util/senhaUtil";
 
+interface EspecificacaoCliente {
+    nomeCompleto: string;
+    cpf: string;
+    telefone: string;
+}
+
+interface EspecificacaoVendedor {
+    permissao: string;
+    estabelecimento: Schema.Types.ObjectId;
+}
+
 /**
  * Document do Usuário.
  */
 export interface UsuarioDocument extends Document {
     nomeUsuario: string;
     senha: string;
+    email: string;
+    role: string;
+    especificacao: EspecificacaoCliente | EspecificacaoVendedor;
     criadoEm: Date;
     atualizadoEm: Date;
     comparaSenha(senha: string): boolean;
@@ -23,24 +37,76 @@ interface Usuario extends Model<UsuarioDocument> {
     getPorNomeUsuario(nomeUsuario: string): Promise<any>;
 }
 
-/**
- * Usuário Schema.
- */
-const UsuarioSchema = new Schema({
+export enum Role {
+    ADMIN = "admin",
+    VENDEDOR = "vendedor",
+    CLIENTE = "cliente"
+}
+
+export enum PermissaoVendedor {
+    GERENTE = "gerente",
+    FUNCIONARIO = "funcionario"
+};
+
+const hasRole = function(expectedRole: string) {
+    return (this.role || this.ownerDocument().role) === expectedRole;
+};
+
+const isAdmin = function() {
+    return hasRole(Role.ADMIN);
+};
+
+const isVendedor = function() {
+    return hasRole(Role.VENDEDOR);
+};
+
+const isCliente = function() {
+    return hasRole(Role.CLIENTE);
+};
+
+const EspecificacaoSchema = new Schema({
     nomeCompleto: {
         type: String,
         minlength: [constantes.USUARIO.NOME_COMPLETO_TAMANHO_MINIMO, mensagensErro.USUARIO.NOME_COMPLETO_TAMANHO_MINIMO],
         maxlength: [constantes.USUARIO.NOME_COMPLETO_TAMANHO_MAXIMO, mensagensErro.USUARIO.NOME_COMPLETO_TAMANHO_MAXIMO],
-        required: [true, mensagensErro.USUARIO.NOME_COMPLETO_OBRIGATORIO],
+        required: [isCliente, mensagensErro.USUARIO.NOME_COMPLETO_OBRIGATORIO],
         trim: true
     },
-    email: {
+    cpf: {
         type: String,
-        match: [constantes.REGEX.EMAIL, mensagensErro.USUARIO.EMAIL_INVALIDO],
-        required: [true, mensagensErro.USUARIO.EMAIL_OBRIGATORIO],
+        match: [constantes.REGEX.CPF_SEM_PONTUACAO, mensagensErro.USUARIO.CPF_INVALIDO],
+        required: [isCliente, mensagensErro.USUARIO.CPF_OBRIGATORIO],
         unique: true,
+        sparse: true,
+        trim: true,
+    },
+    telefone: {
+        type: String,
+        /* Aceita os formatos XX9XXXXXXXX ou XXXXXXXXXX (Sem máscara e espaços) */
+        match: [constantes.REGEX.TELEFONE_SEM_PONTUACAO, mensagensErro.USUARIO.TELEFONE_INVALIDO],
+        required: [isCliente, mensagensErro.USUARIO.TELEFONE_OBRIGATORIO],
         trim: true
     },
+
+    permissao: {
+        type: String,
+        enum: {
+            values: Object.values(PermissaoVendedor),
+            message: mensagensErro.GESTOR.PERMISSAO_INVALIDA // todo
+        },
+        required: [isVendedor, mensagensErro.GESTOR.PERMISSAO_OBRIGATORIA]
+    },
+    estabelecimento: {
+        type: Schema.Types.ObjectId,
+        ref: "Estabelecimento",
+        required: [isVendedor, ""]
+    },
+});
+
+/**
+ * Usuário Schema.
+ */
+const UsuarioSchema = new Schema({
     nomeUsuario: {
         type: String,
         minlength: [constantes.USUARIO.NOME_USUARIO_TAMANHO_MINIMO, mensagensErro.USUARIO.NOME_USUARIO_TAMANHO_MINIMO],
@@ -53,20 +119,21 @@ const UsuarioSchema = new Schema({
         type: String,
         required: [true, mensagensErro.USUARIO.SENHA_OBRIGATORIA]
     },
-    cpf: {
+    email: {
         type: String,
-        match: [constantes.REGEX.CPF_SEM_PONTUACAO, mensagensErro.USUARIO.CPF_INVALIDO],
-        required: [true, mensagensErro.USUARIO.CPF_OBRIGATORIO],
+        match: [constantes.REGEX.EMAIL, mensagensErro.USUARIO.EMAIL_INVALIDO],
+        required: [true, mensagensErro.USUARIO.EMAIL_OBRIGATORIO],
         unique: true,
-        trim: true,
+        trim: true
     },
-    telefone: {
+    role: {
         type: String,
-        /* Aceita os formatos XX9XXXXXXXX ou XXXXXXXXXX (Sem máscara e espaços) */
-        match: [constantes.REGEX.TELEFONE_SEM_PONTUACAO, mensagensErro.USUARIO.TELEFONE_INVALIDO],
-        trim: true,
-        required: [true, mensagensErro.USUARIO.TELEFONE_OBRIGATORIO]
-    }
+        enum: {
+            values: Object.values(Role),
+            message: "" // todo
+        }
+    },
+    especificacao: EspecificacaoSchema
 }, { timestamps: { createdAt: "criadoEm", updatedAt: "atualiadoEm" } });
 
 
