@@ -265,12 +265,12 @@ const sleep = (ms: number) => {
 EstabelecimentoSchema.statics.getPorId = async function (id: string): Promise<any> {
     const CHAVE_CACHE = `${REDIS_CACHE_PREFIX}${id}`;
     const self = this;
-    return new Promise((resolve, reject) => {
-        RedisClientSingletonWrapper.getInstance().get(CHAVE_CACHE, async (_erro, estabelecimentoCache) => {
-            if (estabelecimentoCache) {
-                return resolve(JSON.parse(estabelecimentoCache));
-            }
-	    await sleep(500);
+    return new Promise(async (resolve, reject) => {
+    //     RedisClientSingletonWrapper.getInstance().get(CHAVE_CACHE, async (_erro, estabelecimentoCache) => {
+    //         if (estabelecimentoCache) {
+    //             return resolve(JSON.parse(estabelecimentoCache));
+    //         }
+	//     await sleep(500);
    	    let estabelecimento;
             try {
                 estabelecimento = await self.findById(id);
@@ -280,9 +280,9 @@ EstabelecimentoSchema.statics.getPorId = async function (id: string): Promise<an
             if (!estabelecimento) {
                 reject(new APIError(mensagensErro.ESTABELECIMENTO.ESTABELECIMENTO_NAO_ENCONTRADO, httpStatus.NOT_FOUND));
             }
-            RedisClientSingletonWrapper.getInstance().set(CHAVE_CACHE, JSON.stringify(estabelecimento), "EX", 30);
+            // RedisClientSingletonWrapper.getInstance().set(CHAVE_CACHE, JSON.stringify(estabelecimento), "EX", 30);
             return resolve(estabelecimento);
-       });
+    //    });
     });
 };
 

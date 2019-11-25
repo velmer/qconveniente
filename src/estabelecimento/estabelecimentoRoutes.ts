@@ -6,11 +6,11 @@ import { SESSION_SECRET } from "../config/secrets";
 
 const estabelecimentoRoutes = express.Router();
 
-const autorizaGerente = autorizacaoMiddleware.getAutorizacaoGerente();
-const autorizaAdmin = autorizacaoMiddleware.getAutorizacaoAdmin();
-const expressJWTGestorConfig = {
+const autorizaGerente = autorizacaoMiddleware.getMiddlewareAutorizacaoGerente();
+const autorizaAdmin = autorizacaoMiddleware.getMiddlewareAutorizacaoAdmin();
+const expressJWTConfig = {
     secret: SESSION_SECRET,
-    requestProperty: "authGestor",
+    requestProperty: "usuario",
 };
 
 estabelecimentoRoutes.route("/")
@@ -18,7 +18,7 @@ estabelecimentoRoutes.route("/")
     .get(estabelecimentoController.get)
 
     /** POST /api/estabelecimento - Cria um novo estabelecimento */
-    .post(expressjwt(expressJWTGestorConfig), autorizaAdmin, estabelecimentoController.salva);
+    .post(expressjwt(expressJWTConfig), autorizaAdmin, estabelecimentoController.salva);
 
 estabelecimentoRoutes.route("/categoria")
     /** GET /api/estabelecimentos/categorias - Retornar os estabelecimentos por categoria */
@@ -29,6 +29,6 @@ estabelecimentoRoutes.route("/:idEstabelecimento")
     .get(estabelecimentoController.getPorId)
     
     /** PATCH /api/estabelecimento/:idEstabelecimento */
-    .patch(expressjwt(expressJWTGestorConfig), autorizaGerente, estabelecimentoController.atualiza);
+    .patch(expressjwt(expressJWTConfig), autorizaGerente, estabelecimentoController.atualiza);
 
 export default estabelecimentoRoutes;

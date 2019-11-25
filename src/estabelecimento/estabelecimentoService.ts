@@ -1,6 +1,6 @@
 import { Estabelecimento, EstabelecimentoDocument } from "./Estabelecimento";
-import * as gestorService from "../gestor/gestorService";
-import { PermissaoGestor } from "../gestor/Gestor";
+import * as usuarioService from "../usuario/usuarioService";
+import { Role, PermissaoVendedor } from "../usuario/Usuario";
 
 /**
  * Retorna os estabelecimento que satisfazerem as condições dadas nos
@@ -26,18 +26,21 @@ export const getPorId = async (id: string): Promise<EstabelecimentoDocument> => 
 };
 
 /**
- * Salva o Gestor especificado como Gerente do Estabelecimento que teve
+ * Salva o Usuário especificado como Gerente do Estabelecimento que teve
  * o ID especificado.
  * 
- * @param {JSON} gestorJSON Gestor a ser salvo como Gerente.
+ * @param {JSON} usuarioJSON Usuário a ser salvo como Gerente.
  * @param {String} idEstabelecimento Estabelecimento a ter seu Gerente salvo.
  * 
- * @returns {Promise} Promise de salvamento do Gestor.
+ * @returns {Promise} Promise de salvamento do Usuário.
  */
-const salvaGerenteEstabelecimento = async (gestorJSON: any, idEstabelecimento: string): Promise<any> => {
-    gestorJSON.estabelecimento = idEstabelecimento;
-    gestorJSON.permissao = PermissaoGestor.GERENTE;
-    return gestorService.salva(gestorJSON);
+const salvaGerenteEstabelecimento = async (usuarioJSON: any, idEstabelecimento: string): Promise<any> => {
+    usuarioJSON.role = Role.VENDEDOR;
+    usuarioJSON.especificacao = {
+        "estabelecimento": idEstabelecimento,
+        "permissao": PermissaoVendedor.GERENTE
+    };
+    return usuarioService.salva(usuarioJSON);
 };
 
 /**
@@ -46,10 +49,10 @@ const salvaGerenteEstabelecimento = async (gestorJSON: any, idEstabelecimento: s
  * @param {JSON} estabelecimento Estabelecimento a ser salvo.
  * @return {Promise} Promessa contendo o estabelecimento salvo ou um erro.
  */
-export const salva = async (estabelecimentoJSON: any, gestorJSON: any): Promise<EstabelecimentoDocument> => {
+export const salva = async (estabelecimentoJSON: any, usuarioJSON: any): Promise<EstabelecimentoDocument> => {
     const estabelecimento = new Estabelecimento(estabelecimentoJSON);
     const estabelecimentoSalvo = await estabelecimento.save();
-    await salvaGerenteEstabelecimento(gestorJSON, estabelecimentoSalvo._id);
+    await salvaGerenteEstabelecimento(usuarioJSON, estabelecimentoSalvo._id);
     return estabelecimentoSalvo;
 };
 

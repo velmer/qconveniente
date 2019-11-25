@@ -13,7 +13,7 @@ const UM_DIA = 86400;
  * 
  * @returns {Object} Token de autenticação.
  */
-export const loginUsuario = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+export const login = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     const nomeUsuario = req.body.nomeUsuario;
     const senha = req.body.senha;
     let usuario;

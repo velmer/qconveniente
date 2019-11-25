@@ -18,8 +18,8 @@ export default class SenhaUtil {
     public static validaSenha = (senha: string): (string | undefined) => {
         senha = _.isString(senha) ? senha.trim() : senha;
         const isSenhaInvalida = !_.isString(senha)
-            || senha.length < constantes.SENHA_TAMANHO_MINIMO
-            || senha.length > constantes.SENHA_TAMANHO_MAXIMO;
+            || senha.length < constantes.USUARIO.SENHA_TAMANHO_MINIMO
+            || senha.length > constantes.USUARIO.SENHA_TAMANHO_MAXIMO;
         return isSenhaInvalida ? mensagensErro.AUTH.SENHA_INVALIDA : undefined;
     };
 }

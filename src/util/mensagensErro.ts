@@ -42,22 +42,6 @@ const ESTABELECIMENTO = {
     AVALIACAO_MAXIMA: "A avaliação máxima para o Estabelecimento é 5.",
 };
 
-const GESTOR = {
-    GESTOR_NAO_ENCONTRADO: "Gestor não encontrado.",
-    ID_INVALIDO: "O ID do Gestor é inválido.",
-    BUSCA_GESTOR: "Não foi possível encontrar o Gestor.",
-    BUSCA_GESTORES: "Não foi possível encontrar os Gestores.",
-    SALVAMENTO_GESTOR: "Não foi possível salvar o Gestor.",
-    ATUALIZACAO_GESTOR: "Não foi possível atualizar o Gestor.",
-    EXCLUSAO_GESTOR: "Não foi possível deletar o Gestor.",
-    NOME_USUARIO_TAMANHO_MINIMO: "O nome de usuário do Gestor deve ter no mínimo 3 caracteres.",
-    NOME_USUARIO_TAMANHO_MAXIMO: "O nome de usuário do Gestor deve ter no máximo 30 caracteres.",
-    NOME_USUARIO_OBRIGATORIO: "O nome de usuário do Gestor é obrigatório.",
-    SENHA_OBRIGATORIA: "A senha do Gestor é obrigatória.",
-    PERMISSAO_OBRIGATORIA: "O Gestor deve possuir uma permissão.",
-    PERMISSAO_INVALIDA: "A permissão ({VALUE}) é inválida.",
-};
-
 const PEDIDO = {
     PEDIDO_NAO_ENCONTRADO: "Pedido não encontrado.",
     ID_INVALIDO: "O ID do Pedido é inválido.",
@@ -137,7 +121,6 @@ const USUARIO = {
 const MensagensErro = Object.freeze({
     AUTH,
     ESTABELECIMENTO,
-    GESTOR,
     PRODUTO,
     PEDIDO,
     USUARIO,

@@ -1,7 +1,8 @@
 declare namespace Express {
     export interface Request {
-        authGestor?: {
-            idGestor: string,
+        usuario?: {
+            idUsuario: string,
+            role: string,
             idEstabelecimento: string,
             permissao: string
         };

@@ -205,7 +205,7 @@ UsuarioSchema.methods.getInfoToken = function () {
 
     if (isVendedor.call(this)) {
         infoToken.permissao = this.especificacao.permissao;
-        infoToken.estabelecimento = this.especificacao.estabelecimento;
+        infoToken.idEstabelecimento = this.especificacao.estabelecimento;
     }
 
     return infoToken;

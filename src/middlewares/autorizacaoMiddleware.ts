@@ -1,22 +1,22 @@
 import { Request, Response, NextFunction } from "express";
-import { PermissaoGestor } from "../gestor/Gestor";
+import { Role, PermissaoVendedor } from "../usuario/Usuario";
 import mensagensErro from "../util/mensagensErro";
 import APIError from "../util/APIError";
 import _ from "lodash";
 import * as httpStatus from "http-status-codes";
 
 /**
- * Constroi um middleware para realizar autorização de um Gestor baseado nas
- * permissões especificadas. O gestor deve possuir uma permissão que está
+ * Constroi um middleware para realizar autorização de um Usuário baseado nas
+ * permissões especificadas. O Usuário deve possuir uma permissão que está
  * presente na lista de permissões para ser autorizado.
  * 
  * @param permissoes Permissões necessárias para acessar um recurso.
- * @return Middleware para realizar autorização de um Gestor.
+ * @return Middleware para realizar autorização de um Usuário.
  */
-export const constroiAutorizacaoGestor = (permissoes: string[] = []) => {
+export const constroiMiddlewareAutorizacaoUsuario = (permissoes: string[] = []) => {
     return (req: Request, _res: Response, next: NextFunction) => {
-        const permissao = req.authGestor.permissao;
-        if (permissao != PermissaoGestor.ADMIN && !_.includes(permissoes, permissao)) {
+        const usuario = req.usuario;
+        if (usuario.role != Role.ADMIN && !_.includes(permissoes, usuario.permissao)) {
             const err = new APIError(mensagensErro.AUTH.FORBIDDEN, httpStatus.FORBIDDEN);
             return next(err);
         }
@@ -25,22 +25,22 @@ export const constroiAutorizacaoGestor = (permissoes: string[] = []) => {
 };
 
 /**
- * Retorna um middleware de autorização para um Gestor que tem permissão de Admin.
+ * Retorna um middleware de autorização para um Usuário que tem permissão de Admin.
  */
-export const getAutorizacaoAdmin = () => {
-    return constroiAutorizacaoGestor();
+export const getMiddlewareAutorizacaoAdmin = () => {
+    return constroiMiddlewareAutorizacaoUsuario();
 };
 
 /**
- * Retorna um middleware de autorização para um Gestor que tem permissão de Gerente.
+ * Retorna um middleware de autorização para um Usuário que tem permissão de Gerente.
  */
-export const getAutorizacaoGerente = () => {
-    return constroiAutorizacaoGestor([PermissaoGestor.GERENTE, PermissaoGestor.FUNCIONARIO]);
+export const getMiddlewareAutorizacaoGerente = () => {
+    return constroiMiddlewareAutorizacaoUsuario([PermissaoVendedor.GERENTE, PermissaoVendedor.FUNCIONARIO]);
 };
 
 /**
- * Retorna um middleware de autorização para um Gestor que tem permissão de Gerente.
+ * Retorna um middleware de autorização para um Usuário que tem permissão de Gerente.
  */
-export const getAutorizacaoFuncionario = () => {
-    return constroiAutorizacaoGestor([PermissaoGestor.FUNCIONARIO]);
+export const getMiddlewareAutorizacaoFuncionario = () => {
+    return constroiMiddlewareAutorizacaoUsuario([PermissaoVendedor.FUNCIONARIO]);
 };
