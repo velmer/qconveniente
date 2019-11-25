@@ -100,19 +100,18 @@ const EspecificacaoSchema = new Schema({
         required: [isCliente, mensagensErro.USUARIO.TELEFONE_OBRIGATORIO],
         trim: true
     },
-
     permissao: {
         type: String,
         enum: {
             values: Object.values(PermissaoVendedor),
-            message: mensagensErro.GESTOR.PERMISSAO_INVALIDA // todo
+            message: mensagensErro.USUARIO.PERMISSAO_INVALIDA
         },
-        required: [isVendedor, mensagensErro.GESTOR.PERMISSAO_OBRIGATORIA]
+        required: [isVendedor, mensagensErro.USUARIO.PERMISSAO_OBRIGATORIA]
     },
     estabelecimento: {
         type: Schema.Types.ObjectId,
         ref: "Estabelecimento",
-        required: [isVendedor, ""]
+        required: [isVendedor, mensagensErro.USUARIO.VINCULACAO_ESTABELECIMENTO_OBRIGATORIA]
     },
 });
 
@@ -143,8 +142,9 @@ const UsuarioSchema = new Schema({
         type: String,
         enum: {
             values: Object.values(Role),
-            message: "" // todo
-        }
+            message: mensagensErro.USUARIO.ROLE_INVALIDO
+        },
+        required: [true, mensagensErro.USUARIO.ROLE_OBRIGATORIO]
     },
     especificacao: EspecificacaoSchema
 }, { timestamps: { createdAt: "criadoEm", updatedAt: "atualiadoEm" } });
