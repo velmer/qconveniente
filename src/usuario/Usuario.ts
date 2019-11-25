@@ -30,6 +30,7 @@ export interface UsuarioDocument extends Document {
     criadoEm: Date;
     atualizadoEm: Date;
     comparaSenha(senha: string): boolean;
+    getInfoToken(): object;
 };
 
 interface Usuario extends Model<UsuarioDocument> {
@@ -48,20 +49,32 @@ export enum PermissaoVendedor {
     FUNCIONARIO = "funcionario"
 };
 
+/**
+ * Retorna se o Usuário possui o role especificado.
+ */
 const hasRole = function(expectedRole: string) {
     return (this.role || this.ownerDocument().role) === expectedRole;
 };
 
+/**
+ * Indica se o Usuário é um Admin.
+ */
 const isAdmin = function() {
-    return hasRole(Role.ADMIN);
+    return hasRole.call(this, Role.ADMIN);
 };
 
+/**
+ * Indica se o Usuário é um Vendedor.
+ */
 const isVendedor = function() {
-    return hasRole(Role.VENDEDOR);
+    return hasRole.call(this, Role.VENDEDOR);
 };
 
+/**
+ * Indica se o Usuário é um Cliente.
+ */
 const isCliente = function() {
-    return hasRole(Role.CLIENTE);
+    return hasRole.call(this, Role.CLIENTE);
 };
 
 const EspecificacaoSchema = new Schema({
@@ -178,6 +191,24 @@ UsuarioSchema.set("toJSON", {
  */
 UsuarioSchema.methods.comparaSenha = function (senha: string): boolean {
     return bcrypt.compareSync(senha, this.senha);
+};
+
+/**
+ * Retorna as informações a serem colocadas no token de autenticação de acordo
+ * com o role do usuário.
+ */
+UsuarioSchema.methods.getInfoToken = function () {
+    const infoToken = {
+        idUsuario: this._id,
+        role: this.role,
+    } as any;
+
+    if (isVendedor.call(this)) {
+        infoToken.permissao = this.especificacao.permissao;
+        infoToken.estabelecimento = this.especificacao.estabelecimento;
+    }
+
+    return infoToken;
 };
 
 /**
