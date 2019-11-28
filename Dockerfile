@@ -1,9 +1,6 @@
 # The instructions for the first stage
 FROM node:10-alpine as builder
 
-ARG NODE_ENV=development
-ENV NODE_ENV=${NODE_ENV}
-
 RUN apk --no-cache add python make g++
 
 COPY package*.json ./
@@ -20,4 +17,5 @@ RUN npm install nodemon -g --quiet
 COPY . .
 
 EXPOSE 8080
-CMD [ "npm", "run", "start-dev" ]
+
+CMD ["npm", "run", "start-dev"]

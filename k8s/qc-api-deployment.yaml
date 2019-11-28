@@ -19,10 +19,12 @@ spec:
     spec:
       containers:
         - name: api
-          image: qconveniente-api:latest
+          image: qconveniente-api:v1.5.3
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
           env:
             - name: MONGO_URI
               value: 'mongodb://mongo:27017/app'
+            - name: REDIS_HOST
+              value: 'redis'

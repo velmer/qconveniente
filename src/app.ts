@@ -7,7 +7,7 @@ import bluebird from "bluebird";
 import routes from "./routes";
 import * as erroMiddleware from "./middlewares/erroMiddleware";
 import RedisClientSingletonWrapper from "./cache/RedisClientSingletonWrapper";
-import { MONGODB_URI, REDIS_URI } from "./config/secrets";
+import { MONGODB_URI, REDIS_HOST } from "./config/secrets";
 
 const SERVER_PORT = process.env.PORT || 8080;
 const REDIS_PORT = parseInt(process.env.REDIS_PORT) || 6379;
@@ -31,7 +31,7 @@ const configuraMongoDB = () => {
  * Configura o Redis Client para ser utilizado como cache global.
  */
 const configuraRedis = () => {
-    RedisClientSingletonWrapper.configuraCliente(REDIS_PORT, REDIS_URI);
+    RedisClientSingletonWrapper.configuraCliente(REDIS_PORT, REDIS_HOST);
     const redisClient = RedisClientSingletonWrapper.getInstance();
     redisClient.on("error", err => {
         console.log(`Erro ao se conectar com o Redis. Verifique se o Redis Server está rodando. ${err}`);
@@ -61,6 +61,9 @@ const configuraExpressServer = (app: core.Express) => {
 const configuraRotas = (app: core.Express) => {
     // Monta todas as rotas em "/api"
     app.use("/api", routes);
+    app.get("/", (req:any, res:any) => {
+        res.send("QConveniente API\n");
+    });
 };
 
 configuraMongoDB();
