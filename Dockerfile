@@ -20,4 +20,4 @@ RUN npm install nodemon -g --quiet
 COPY . .
 
 EXPOSE 8080
-CMD [ "npm", “run”, "start-dev" ]
+CMD [ "npm", "run", "start-dev" ]

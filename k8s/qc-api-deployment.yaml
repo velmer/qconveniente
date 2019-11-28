@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qconveniente-api
+  labels:
+    app: qconveniente
+    tier: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qconveniente
+      tier: api
+  template:
+    metadata:
+      labels:
+        app: qconveniente
+        tier: api
+    spec:
+      containers:
+        - name: api
+          image: qconveniente-api:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://mongo:27017/app'
