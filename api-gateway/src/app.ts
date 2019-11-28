@@ -1,3 +1,4 @@
+import http from "http";
 import express from "express";
 import * as core from "express-serve-static-core";
 import expressproxy from "express-http-proxy";
@@ -39,6 +40,16 @@ const configuraExpressServer = (app: core.Express) => {
 const configuraRotas = (app: core.Express) => {
     app.get(API_PATH_PREFIX, (_req: any, res: any) => {
         res.send("Bem-vindo à API do QConveniente!\n");
+    });
+
+    app.get(`${API_PATH_PREFIX}/test`, (_req: any, res: any) => {
+        http.request(ESTABELECIMENTO_SERVICE_URL, { method: 'POST' }, (_res: any) => {
+            _res.on('data', (d:any) => {
+                res.send(d);
+            });
+        }).on('error', (error: any) => {
+            res.error(error);
+        });
     });
 
     // Monta todas as rotas em "/api"
