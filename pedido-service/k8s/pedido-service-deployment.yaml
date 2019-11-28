@@ -1,0 +1,25 @@
+apiVersion: pedido-service/v1
+kind: Deployment
+metadata:
+  name: pedido-service
+  labels:
+    app: pedido-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pedido-service
+  template:
+    metadata:
+      labels:
+        app: pedido-service
+    spec:
+      containers:
+        - name: pedido-service
+          image: pedido-service:v1.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8082
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://mongo:27017/qconveniente'

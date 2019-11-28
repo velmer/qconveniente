@@ -1,0 +1,25 @@
+apiVersion: usuario-service/v1
+kind: Deployment
+metadata:
+  name: usuario-service
+  labels:
+    app: usuario-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: usuario-service
+  template:
+    metadata:
+      labels:
+        app: usuario-service
+    spec:
+      containers:
+        - name: usuario-service
+          image: usuario-service:v1.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8083
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://mongo:27017/qconveniente'
