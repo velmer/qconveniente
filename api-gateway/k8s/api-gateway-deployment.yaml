@@ -1,25 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qconveniente-api
+  name: api-gateway
   labels:
-    app: qconveniente
-    tier: api
+    app: api-gateway
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: qconveniente
-      tier: api
+      app: api-gateway
   template:
     metadata:
       labels:
-        app: qconveniente
-        tier: api
+        app: api-gateway
     spec:
       containers:
-        - name: api
-          image: qconveniente-api:v1.5.3
+        - name: api-gateway
+          image: api-gateway:v1.0
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
