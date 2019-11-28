@@ -5,9 +5,9 @@ metadata:
   labels:
     name: estabelecimento-service
 spec:
+  type: NodePort
+  selector:
+    app: estabelecimento-service
   ports:
     - port: 8081
       targetPort: 8081
-  clusterIP: None
-  selector:
-    role: estabelecimento-service
