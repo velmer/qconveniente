@@ -22,12 +22,12 @@ spec:
             - containerPort: 8080
           env:
             - name: MONGO_URI
-              value: 'mongodb://mongo:27017/app'
+              value: 'mongodb://mongo:27017/qconveniente'
             - name: REDIS_HOST
               value: 'redis'
             - name: ESTABELECIMENTO_SERVICE_URL
-              value: 'http://estabelecimento-service:8083/'
+              value: 'http://estabelecimento-service:8081/'
             - name: PEDIDO_SERVICE_URL
-              value: 'http://pedido-service:8083/'
+              value: 'http://pedido-service:8082/'
             - name: USUARIO_SERVICE_URL
               value: 'http://usuario-service:8083/'
