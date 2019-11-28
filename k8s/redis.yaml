@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  labels:
+    name: redis
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+  clusterIP: None
+  selector:
+    role: redis
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+spec:
+  serviceName: 'redis'
+  replicas: 1
+  selector:
+    matchLabels:
+      role: redis
+  template:
+    metadata:
+      labels:
+        role: redis
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: redis-primary
+          image: redis
+          ports:
+            - containerPort: 6379
+  volumeClaimTemplates:
+    - metadata:
+        name: redis-claim
+      spec:
+        accessModes: ['ReadWriteOnce']
+        resources:
+          requests:
+            storage: 1Gi
