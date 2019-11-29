@@ -44,6 +44,7 @@ const configuraRotas = (app: core.Express) => {
     app.use(`${API_PATH_PREFIX}/estabelecimento`, estabelecimentoProxy);
     app.use(`${API_PATH_PREFIX}/produto`, estabelecimentoProxy);
     app.use(`${API_PATH_PREFIX}/pedido`, pedidoProxy);
+    app.use(`${API_PATH_PREFIX}/auth`, usuarioProxy);
     app.use(`${API_PATH_PREFIX}/usuario`, usuarioProxy);
 };
 
