@@ -1,22 +1,22 @@
-apiVersion: pedido-service/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pedido-service
   labels:
-    app: pedido-service
+    role: pedido-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pedido-service
+      role: pedido-service
   template:
     metadata:
       labels:
-        app: pedido-service
+        role: pedido-service
     spec:
       containers:
         - name: pedido-service
-          image: pedido-service:v1.0
+          image: pedido-service:v1.1
           imagePullPolicy: Never
           ports:
             - containerPort: 8082

@@ -5,9 +5,9 @@ metadata:
   labels:
     name: pedido-service
 spec:
-  type: NodePort
+  clusterIP: None
   selector:
-    app: pedido-service
+    role: pedido-service
   ports:
     - port: 8082
       targetPort: 8082

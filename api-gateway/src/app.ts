@@ -11,7 +11,7 @@ const SERVER_PORT = process.env.PORT || 8080;
 const ESTABELECIMENTO_SERVICE_URL = process.env.ESTABELECIMENTO_SERVICE_URL || "http://localhost:8081/";
 const PEDIDO_SERVICE_URL = process.env.PEDIDO_SERVICE_URL || "http://localhost:8082/";
 const USUARIO_SERVICE_URL = process.env.USUARIO_SERVICE_URL || "http://localhost:8083/";
-const PROXY_CONFIG = { proxyReqPathResolver: (req:any) => req.baseUrl.split(API_PATH_PREFIX)[1] };
+const PROXY_CONFIG = { proxyReqPathResolver: (req:any) => req.originalUrl.split(API_PATH_PREFIX)[1] };
 
 const estabelecimentoProxy = expressproxy(ESTABELECIMENTO_SERVICE_URL, PROXY_CONFIG);
 const pedidoProxy = expressproxy(PEDIDO_SERVICE_URL, PROXY_CONFIG);

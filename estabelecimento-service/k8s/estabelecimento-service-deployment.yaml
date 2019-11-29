@@ -1,22 +1,22 @@
-apiVersion: estabelecimento-service/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: estabelecimento-service
   labels:
-    app: estabelecimento-service
+    role: estabelecimento-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: estabelecimento-service
+      role: estabelecimento-service
   template:
     metadata:
       labels:
-        app: estabelecimento-service
+        role: estabelecimento-service
     spec:
       containers:
         - name: estabelecimento-service
-          image: estabelecimento-service:v1.0
+          image: estabelecimento-service:v1.1
           imagePullPolicy: Never
           ports:
             - containerPort: 8081

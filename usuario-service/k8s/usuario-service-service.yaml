@@ -5,9 +5,9 @@ metadata:
   labels:
     name: usuario-service
 spec:
-  type: NodePort
+  clusterIP: None
   selector:
-    app: usuario-service
+    role: usuario-service
   ports:
     - port: 8083
       targetPort: 8083
