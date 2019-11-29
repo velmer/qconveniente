@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: estabelecimento-service
-          image: estabelecimento-service:v1.1
+          image: estabelecimento-service:v1.9.5
           imagePullPolicy: Never
           ports:
             - containerPort: 8081

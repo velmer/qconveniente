@@ -67,7 +67,7 @@ const configuraRotas = (app: core.Express) => {
 };
 
 configuraMongoDB();
-// configuraRedis();
+configuraRedis();
 const app = express();
 configuraExpressServer(app);
 configuraRotas(app);
