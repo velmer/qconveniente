@@ -45,10 +45,9 @@ export const getPorCategoria = async (req: Request, res: Response, next: NextFun
  */
 export const getPorId = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        console.log(req, req.params["idEstabelecimento"]);
-        // const estabelecimento = await estabelecimentoService
-        //     .getPorId(req.params["idEstabelecimento"]);
-        return res.status(httpStatus.OK).json({});
+        const estabelecimento = await estabelecimentoService
+            .getPorId(req.params["idEstabelecimento"]);
+        return res.status(httpStatus.OK).json(estabelecimento);
     } catch (erro) {
         return next(erro || mensagensErro.ESTABELECIMENTO.BUSCA_ESTABELECIMENTO);
     }
