@@ -38,6 +38,7 @@ const configuraExpressServer = (app: core.Express) => {
  */
 const configuraRotas = (app: core.Express) => {
     app.get(API_PATH_PREFIX, (_req: any, res: any) => {
+        console.log(ESTABELECIMENTO_SERVICE_URL);
         res.send("Bem-vindo à API do QConveniente!\n");
     });
 

@@ -1,22 +1,22 @@
-apiVersion: usuario-service/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: usuario-service
   labels:
-    app: usuario-service
+    role: usuario-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: usuario-service
+      role: usuario-service
   template:
     metadata:
       labels:
-        app: usuario-service
+        role: usuario-service
     spec:
       containers:
         - name: usuario-service
-          image: usuario-service:v1.0
+          image: usuario-service:v1.1
           imagePullPolicy: Never
           ports:
             - containerPort: 8083
