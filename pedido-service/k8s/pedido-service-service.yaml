@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pedido-service
+  labels:
+    name: pedido-service
+spec:
+  clusterIP: None
+  selector:
+    role: pedido-service
+  ports:
+    - port: 8082
+      targetPort: 8082

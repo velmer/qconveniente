@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: estabelecimento-service
+  labels:
+    role: estabelecimento-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: estabelecimento-service
+  template:
+    metadata:
+      labels:
+        role: estabelecimento-service
+    spec:
+      containers:
+        - name: estabelecimento-service
+          image: estabelecimento-service:v1.9.5
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8081
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://mongo:27017/qconveniente'
+            - name: REDIS_HOST
+              value: 'redis'

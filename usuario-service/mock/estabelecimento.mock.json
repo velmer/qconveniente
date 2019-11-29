@@ -1,0 +1,160 @@
+[
+  {
+      "categorias": [
+          "Água",
+          "Gás"
+      ],
+      "formasPagamento": [
+          "Dinheiro"
+      ],
+      "telefones": [
+          "8333332222"
+      ],
+      "inadimplente": false,
+      "nome": "Companhia do Gás",
+      "valorEntrega": 5,
+      "tempoEntrega": {
+          "minimo": 15,
+          "maximo": 45
+      },
+      "horariosFuncionamento": {
+          "segundaFeira": [
+              {
+                  "inicio": "0800",
+                  "fim": "1800"
+              }
+          ],
+          "tercaFeira": [
+              {
+                  "inicio": "0800",
+                  "fim": "1800"
+              }
+          ],
+          "quartaFeira": [
+              {
+                  "inicio": "0800",
+                  "fim": "1800"
+              }
+          ],
+          "quintaFeira": [
+              {
+                  "inicio": "0800",
+                  "fim": "1800"
+              }
+          ],
+          "sextaFeira": [
+              {
+                  "inicio": "0800",
+                  "fim": "1800"
+              }
+          ],
+          "sabado": [
+              {
+                  "inicio": "0800",
+                  "fim": "1300"
+              }
+          ],
+          "domingo": []
+      },
+      "secoes": [
+          {
+              "subSecoes": [],
+              "nome": "Águas"
+          },
+          {
+              "subSecoes": [],
+              "nome": "Gás"
+          }
+      ]
+  },
+  {
+      "categorias": [
+          "Bebida e Conveniência"
+      ],
+      "formasPagamento": [
+          "Dinheiro",
+          "Crédito MasterCard",
+          "Crédito VISA",
+          "Crédito Hipercard",
+          "Débito MasterCard",
+          "Débito VISA"
+      ],
+      "telefones": [
+          "8333330000",
+          "83988880000"
+      ],
+      "inadimplente": false,
+      "nome": "MS Conveniência",
+      "valorEntrega": 7,
+      "tempoEntrega": {
+          "minimo": 30,
+          "maximo": 70
+      },
+      "horariosFuncionamento": {
+          "segundaFeira": [
+              {
+                  "inicio": "1000",
+                  "fim": "2000"
+              }
+          ],
+          "tercaFeira": [
+              {
+                  "inicio": "1000",
+                  "fim": "2000"
+              }
+          ],
+          "quartaFeira": [
+              {
+                  "inicio": "1000",
+                  "fim": "2200"
+              }
+          ],
+          "quintaFeira": [
+              {
+                  "inicio": "1000",
+                  "fim": "2000"
+              }
+          ],
+          "sextaFeira": [
+              {
+                  "inicio": "1000",
+                  "fim": "2300"
+              }
+          ],
+          "sabado": [
+              {
+                  "inicio": "1000",
+                  "fim": "2300"
+              }
+          ],
+          "domingo": [
+              {
+                  "inicio": "1000",
+                  "fim": "1800"
+              }
+          ]
+      },
+      "secoes": [
+          {
+              "subSecoes": [
+                  {
+                      "nome": "Cervejas"
+                  },
+                  {
+                      "nome": "Cachaças"
+                  },
+                  {
+                      "nome": "Whiskies"
+                  },
+                  {
+                      "nome": "Vodkas"
+                  }
+              ],
+              "nome": "Bebidas"
+          },
+          {
+              "nome": "Petiscos"
+          }
+      ]
+  }
+]

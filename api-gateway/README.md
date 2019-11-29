@@ -43,7 +43,7 @@ cd qconveniente
 npm install
 ```
 
-### Execução local
+### Execução
 
 - Inicie seu servidor MongoDB (você precisará fazer isso em outro terminal)
 ```
@@ -67,20 +67,8 @@ Todas as regras de negócios e casos de uso do QConveniente estão disponíveis 
 
 # Arquitetura
 
-O QConveniente é estruturado em Microservices, possuindo um API Gateway que serve como porta de entrada pro sistema.
-
-O `Estabelecimento Service` é responsável por todas as operações com a entidade Estabelecimento e seus Produtos. O `Pedido Service` é responsável pelo gerenciamento dos pedidos realizados, desde sua criação em rascunho até a entrega ser realizada. O `Usuario Service` é responsável pelas operações com a entidade Usuário, assim como a autenticação do sistema.
-
-Além disso, temos os microservices responsáveis pela interação com os bancos de dados. O `Mongo Service` é responsável por se comunicar com o MongoDB que serve os três microservices acima. Por fim, o `Redis Service` é responsável por se comunicar com o Redis que serve para armazenar o cache da aplicação, que atualmente é utilizado apenas pelo `Estabelecimento Service`.
-
 <p align="center">
-  <img src="img/arquitetura-microservices.jpg" alt="Arquitetura Microservices" width="600">
-</p>
-
-## Arquitetura dos Microservices
-
-<p align="center">
-  <img src="img/qconveniente-arquitetura.jpg" alt="Arquitetura" width="600">
+  <img src="img/qconveniente-arquitetura.jpg" alt="Arquitetura" width="400">
 </p>
 
 A nossa API REST é construída em cima de uma arquitetura de 3 Camadas.
@@ -91,53 +79,9 @@ A segunda camada é a camada dos services, os quais são responsáveis pela lóg
 
 Por fim, a terceira camada é composta pelos models, que são as entidades do nosso sistema. Uma entidade tem como responsabilidade se comunicar com o MongoDB (nosso BD) para realizar as ações necessárias (por exemplo, consultar, salvar, editar, ou excluir uma entidade). Nossos models são Schemas do Mongoose, o qual é o nosso ODM (*Object Data Mapping*), que realizará o trabalho de converter uma entidade do sistema em documento para ser salvo no BD.
 
-## Deploy no Kubernetes
-
-O QConveniente suporta deployment no Kubernetes. Para tal, cada um dos serviços tem seus arquivos de configuração de `deployment` e exposição via `service`. Como desejamos que o usuário acesse nossa API apenas pelo Gateway da mesma, o `API Service` é o único serviço externalizado do nosso deploy, sendo um `service` do tipo `NodePort`, enquanto os demais são do tipo `ClusterIP`. Os arquivos de configuração de cada um dos microservices estão na pasta `/k8s`.
-
-### Minikube
-
-Para realizar o deploy localmente, podemos utilizar o Minikube, o qual irá criar um cluster Kubernetes com apenas um node, onde estarão localizados todos os pods criados. Nesse sentido, precisamos inicializar o Minikube, faremos isso com o seguinte comando:
-
-```
-minikube start
-```
-
-### Kubectl
-
-Para gerenciar nosso cluster utilizaremos o Kubectl, o gerenciador do Kubernetes. Com o Minikube inicializado e com as imagens dos microservices configuradas via Docker, podemos iniciar nosso cluster. Para tal, executamos os seguintes comandos:
-
-- Criar o deploy/pod para cada um dos services:
-```
-kubectl apply -f diretorio-do-service/k8s/arquivo-de-deployment-do-service.yaml
-```
-
-- Expor cada pod como um `service` do Kubernetes:
-```
-kubectl apply -f diretorio-do-service/k8s/arquivo-de-service-do-service.yaml
-```
-
-Com isso, todos os serviços estarão deployados e em execução. Para acessar a API, precisamos descobrir em qual porta o service do `API Gateway` está executando. Para tal, rodamos o comando `kubectl get services` e encontramos a porta na coluna `PORT(S)` no formato `portaInterna:portaExterna/protocolo`, assim utilizaremos a `portaExterna`, já que desejamos acessar o `service` de fora do cluster.
-
-<p align="center">
-  <img src="img/descoberta-porta.jpg" alt="Descoberta da Porta Externa do Gateway" width="600">
-</p>
-
-Além disso, precisamos saber qual o IP público (host) do nosso cluster, para tal executamos o comando `kubectl cluster-info`.
-
-<p align="center">
-  <img src="img/descoberta-ip.jpg" alt="Descoberta do IP público do Gateway" width="600">
-</p>
-
-Com o IP e a Porta já podemos realizar requisições à nossa API, assim como mostra a figura abaixo. Para realizar o acesso, usamos o comando `curl` e executamos um GET em `/api` que é a rota default do API Gateway.
-
-<p align="center">
-  <img src="img/acesso-cluster.jpg" alt="Acesso ao Cluster" width="600">
-</p>
-
 # Autenticação
 
-No QConveniente existem alguns recursos e rotas que só podem ser acessados mediante autenticação. Nossa autenticação é feita utilizando JWT, ou seja, utilizamos tokens para autenticar um determinado usuário. Quando um usuário se cadastra no sistema ele provê informações, dentre as quais estão um nome de usuário e uma senha, os quais são suas credenciais e serão utilizados para autenticá-lo.
+No QConveniente existem alguns recursos e rotas que só podem ser acessados mediante autenticação. Nossa autenticação é feita utilizando JWT, ou seja, utilizamos tokens para autenticar um determinado usuário. Quando um usuário/gestor se cadastra no sistema ele provê informações, dentre as quais estão um nome de usuário e uma senha, os quais são suas credenciais e serão utilizados para autenticá-lo.
 
 Caso as credenciais estejam corretas, ou seja, existe um usuário com o nome de usuário fornecido e esse tem a senha fornecida, o usuário é autenticado e receberá um token (JWT). Esse token poderá ser enviando no header `Authorization` de requisições que necessitem de autenticação no formato `"Bearer seuToken"`.
 
@@ -148,7 +92,7 @@ Caso as credenciais estejam incorretas, seja por não existir um usuário com o 
 Para um usuário do App poder se autenticar será necessário enviar suas credenciais para a rota de autenticação. Esse envio deve ser feito através de um POST.
 
 ```
-POST /auth/login
+POST /auth/loginUsuario
 
 body: {
   "nomeUsuario": "seuNomeDeUsuarioAqui",
@@ -157,6 +101,21 @@ body: {
 ```
 
 O token retornado para o usuário terá como Payload um campo `idUsuario`, o qual será, obviamente, o ID do usuário que se autenticou.
+
+## Gestor
+
+Da mesma forma que um usuário do App, um gestor deve enviar suas credenciais para a devida rota de autenticação, também utilizando um POST.
+
+```
+POST /auth/loginGestor
+
+body: {
+  "nomeUsuario": "seuNomeDeUsuarioAqui",
+  "senha": "suaSenhaAqui"
+}
+```
+
+O token retornado para o gestor terá como Payload três campos: `idGestor`, `idEstabelecimento` e `permissao`, os quais são o ID do gestor que se autenticou, o ID do estabelecimento a que ele pertence e a sua permissão no sistema, respectivamente.
 
 # Escala
 
