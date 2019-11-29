@@ -8,6 +8,8 @@ import { Produto, ProdutoDocument } from "./Produto";
  * @return {Promise} Promessa contendo os produtos.
  */
 export const get = async (params: object = {}): Promise<ProdutoDocument[]> => {
+    const paramsDefault =  { ativo: true };
+    params = { ...paramsDefault, ...params };
     const produtos = await Produto.find(params);
     return produtos;
 };

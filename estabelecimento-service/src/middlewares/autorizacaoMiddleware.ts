@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-// import { Role, PermissaoVendedor } from "../usuario/Usuario";
 import mensagensErro from "../util/mensagensErro";
 import APIError from "../util/APIError";
 import _ from "lodash";
